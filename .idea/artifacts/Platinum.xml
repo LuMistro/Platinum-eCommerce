@@ -1,0 +1,54 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Platinum">
+    <output-path>$PROJECT_DIR$/out/artifacts/Platinum.war</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Platinum/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Platinum" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: bouncycastle:bcmail-jdk14:138" />
+          <element id="library" level="project" name="Maven: bouncycastle:bcprov-jdk14:138" />
+          <element id="library" level="project" name="Maven: com.fasterxml:classmate:1.3.4" />
+          <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.06" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+          <element id="library" level="project" name="Maven: com.lowagie:itext:2.1.7" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.20" />
+          <element id="library" level="project" name="Maven: com.sun.istack:istack-commons-runtime:3.0.7" />
+          <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.13" />
+          <element id="library" level="project" name="Maven: javax.activation:javax.activation-api:1.2.0" />
+          <element id="library" level="project" name="Maven: javax.persistence:javax.persistence-api:2.2" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
+          <element id="library" level="project" name="Maven: javax.xml.bind:jaxb-api:2.3.1" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.17" />
+          <element id="library" level="project" name="Maven: net.bytebuddy:byte-buddy:1.9.11" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-collections4:4.4" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.19" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-math3:3.6.1" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:4.1.1" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:4.1.1" />
+          <element id="library" level="project" name="Maven: org.apache.poi:poi:4.1.1" />
+          <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:3.1.0" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcmail-jdk14:1.38" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bcprov-jdk14:1.38" />
+          <element id="library" level="project" name="Maven: org.bouncycastle:bctsp-jdk14:1.38" />
+          <element id="library" level="project" name="Maven: org.dom4j:dom4j:2.1.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jaxb:jaxb-runtime:2.3.1" />
+          <element id="library" level="project" name="Maven: org.glassfish.jaxb:txw2:2.3.1" />
+          <element id="library" level="project" name="Maven: org.hibernate.common:hibernate-commons-annotations:5.1.0.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.0.17.Final" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.4.5.Final" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.24.0-GA" />
+          <element id="library" level="project" name="Maven: org.jboss.logging:jboss-logging:3.3.2.Final" />
+          <element id="library" level="project" name="Maven: org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:1.1.1.Final" />
+          <element id="library" level="project" name="Maven: org.jboss:jandex:2.0.5.Final" />
+          <element id="library" level="project" name="Maven: org.jvnet.staxex:stax-ex:1.8" />
+          <element id="library" level="project" name="Maven: org.primefaces:primefaces:7.0" />
+          <element id="library" level="project" name="Maven: antlr:antlr:2.7.7" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
