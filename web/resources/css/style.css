@@ -1,0 +1,58 @@
+html, body {
+    background-color: #323232;
+}
+
+.align-center {
+    text-align: center;
+}
+
+.pessoa-coluna-acoes {
+    width: 80px;
+}
+
+.pessoa-coluna-idade {
+    width: 90px;
+}
+
+.pessoa-coluna-nascimento {
+    width: 130px;
+}
+
+.tabela-exportacoes {
+    float: right;
+    padding-top: 2px;
+}
+
+.tabela-exportacoes a {
+    margin-right: 5px;
+}
+
+.ui-filter-column .ui-column-customfilter .custom-filter {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.year-spinner input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+.ui-menuitem-icon {
+    text-align: center;
+    margin-right: 10px;
+}
+
+.logo {
+    text-align: center;
+    font-weight: revert;
+    font-family: sans-serif;
+    color: whitesmoke;
+}
+
+.subtitulo {
+    font-size: 20px;
+    font-weight: revert;
+    font-family: sans-serif;
+    color: whitesmoke;
+}
