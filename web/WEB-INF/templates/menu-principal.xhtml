@@ -7,23 +7,18 @@
 <h:form>
 
 
-    <p:panelGrid columns="2" layout="grid"
-                 columnClasses="ui-g-4 ui-md-3 ui-lg-1, ui-g-8 ui-md-9 ui-lg-11"
+    <p:panelGrid columns="2"
                  styleClass="ui-panelgrid-blank">
 
-        <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
+        <p:commandButton icon="fa fa-bars" oncomplete="PF('sidebar1').show()"/>
 
-        <p:megaMenu orientation="#{megaMenuView.orientation}" style="margin-top:20px">
-            <p:submenu label="TV" icon="pi pi-check">
+        <p:megaMenu id="barraMenu" orientation="#{megaMenuView.orientation}" >
+            <p:submenu label="Cadastro" icon="fa fa-save">
                 <p:column>
-                    <p:submenu label="TV.1">
-                        <p:menuitem value="TV.1.1" url="#"/>
-                        <p:menuitem value="TV.1.2" url="#"/>
-                    </p:submenu>
                     <p:submenu label="TV.2">
-                        <p:menuitem value="TV.2.1" url="#"/>
-                        <p:menuitem value="TV.2.2" url="#"/>
-                        <p:menuitem value="TV.2.3" url="#"/>
+                        <p:menuitem value="Produtos" url="http://localhost:8080/Platinum/teste.xhtml"/>
+                        <p:menuitem value="Cliente" url="#"/>
+
                     </p:submenu>
                 </p:column>
             </p:submenu>

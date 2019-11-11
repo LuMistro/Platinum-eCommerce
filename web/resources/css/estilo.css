@@ -3,6 +3,17 @@
 }
 
 .ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix {
-    margin-top: 0px;
+    text-align: start;
+
+}
+
+.ui-button, button.ui-button.ui-state-default, .ui-button.ui-state-default {
+    border: none;
+    color: black;
+    background: white;
+}
+
+.barraMenu {
+    right: 300px;
 
 }
