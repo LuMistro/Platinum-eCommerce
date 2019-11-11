@@ -7,9 +7,10 @@
     <persistence-unit name="Platinum-PU" transaction-type="JTA">
 
         <!-- Mapeamento de classes -->
-<!--        <class>model.Pessoa</class>-->
-
-        <!--#Mapeamento de classes -->
+        <class>model.Produto</class>
+        <class>model.Cliente</class>
+        <class>model.ItemVenda</class>
+        <class>model.Venda</class>
 
 
         <properties>
