@@ -6,18 +6,29 @@
 
 <h:form>
 
+    <p:megaMenu orientation="#{megaMenuView.orientation}" style="margin-top:20px">
+    <p:submenu label="TV" icon="pi pi-check">
+    <p:column>
+        <p:submenu label="TV.1">
+            <p:menuitem value="TV.1.1" url="#"/>
+            <p:menuitem value="TV.1.2" url="#"/>
+        </p:submenu>
+        <p:submenu label="TV.2">
+            <p:menuitem value="TV.2.1" url="#"/>
+            <p:menuitem value="TV.2.2" url="#"/>
+            <p:menuitem value="TV.2.3" url="#"/>
+        </p:submenu>
+    </p:column>
+
     <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
         <h1 style="font-weight:normal">Left Sidebar</h1>
-        <p:commandButton value="Cancel" oncomplete="PF('sidebar1').hide()"/>
+        <p:button value="Menu1" outcome="teste.xhtml"/>
+
     </p:sidebar>
+
 
     <p:commandButton icon="pi pi-arrow-right" oncomplete="PF('sidebar1').show()"/>
 
-    <f:facet name="options">
-
-        <p:button outcome="index.xhtml" type="button" value="Home" icon="fa fa-home"/>
-
-    </f:facet>
 
 </h:form>
 
