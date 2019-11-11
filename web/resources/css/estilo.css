@@ -1,0 +1,8 @@
+.ui-widget-content {
+    border: none;
+}
+
+.ui-menu ui-menubar ui-megamenu ui-widget ui-widget-content ui-corner-all ui-helper-clearfix {
+    margin-top: 0px;
+
+}
