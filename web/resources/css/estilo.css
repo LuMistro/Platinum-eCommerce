@@ -1,3 +1,7 @@
+* {
+    font-family: Verdana;
+}
+
 .ui-widget-content {
     border: none;
 }
@@ -16,4 +20,16 @@
 .barraMenu {
     right: 300px;
 
+}
+
+.endereco input, .campos input, .ui-selectonemenu.ui-selectonemenu {
+    width: 100%;
+}
+
+.logo {
+    text-align: center;
+}
+
+.corpo{
+    padding: 30px;
 }
