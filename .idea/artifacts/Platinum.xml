@@ -31,7 +31,6 @@
           <element id="library" level="project" name="Maven: com.sun.xml.fastinfoset:FastInfoset:1.2.15" />
           <element id="library" level="project" name="Maven: org.hibernate.validator:hibernate-validator:6.0.17.Final" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
-          <element id="library" level="project" name="Maven: org.primefaces:primefaces:7.0" />
           <element id="library" level="project" name="Maven: com.lowagie:itext:2.1.7" />
           <element id="library" level="project" name="Maven: bouncycastle:bcmail-jdk14:138" />
           <element id="library" level="project" name="Maven: bouncycastle:bcprov-jdk14:138" />
@@ -47,6 +46,7 @@
           <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:3.1.0" />
           <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.19" />
           <element id="library" level="project" name="Maven: com.github.virtuald:curvesapi:1.06" />
+          <element id="library" level="project" name="Maven: org.primefaces:primefaces:7.0" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="Platinum/web/Web" />
