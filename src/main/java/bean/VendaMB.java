@@ -1,19 +1,20 @@
 package bean;
 
+import com.lowagie.text.pdf.AcroFields;
 import dao.ClienteDao;
+import dao.ProdutoDao;
 import dao.VendaDao;
 import interfaces.IBaseDao;
 import model.Cliente;
 import model.ItemVenda;
+import model.Produto;
 import model.Venda;
-import model.enums.FormaPagamento;
 import org.primefaces.event.FlowEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,17 @@ import java.util.List;
 public class VendaMB implements Serializable {
 
     private Venda venda;
+    private Produto produto;
+    private Integer quantidade;
     private ItemVenda itemVenda;
     private IBaseDao<Venda> vendaDao;
 
+
     private List<Venda> vendas;
     private List<ItemVenda> itemVendas;
+
+    private List<Produto> produtos;
+    private IBaseDao<Produto> produtoDao;
 
     private IBaseDao<Cliente> clienteDao;
     private List<Cliente> clientes;
@@ -41,22 +48,39 @@ public class VendaMB implements Serializable {
     public void limpar() {
         venda = new Venda();
         venda.setCliente(new Cliente());
+        produto = new Produto();
+        itemVenda = new ItemVenda();
     }
 
     public void atualizar() {
         vendas = vendaDao.buscarTodos();
+        produtos = produtoDao.buscarTodos();
     }
 
     private void inicializaObjetos() {
         venda = new Venda();
         venda.setCliente(new Cliente());
+        produto = new Produto();
         itemVenda = new ItemVenda();
         vendaDao = new VendaDao();
         clienteDao = new ClienteDao();
+        produtoDao = new ProdutoDao();
         vendas = new ArrayList<>();
         clientes = new ArrayList<>();
+        produtos = new ArrayList<>();
+        itemVendas = new ArrayList<>();
 
         clientes = clienteDao.buscarTodos();
+        produtos = produtoDao.buscarTodos();
+    }
+
+    public void adicionarItem() {
+        itemVenda = new ItemVenda();
+        itemVenda.setProduto(produto);
+        itemVenda.setQuantidade(quantidade);
+        itemVenda.setVenda(venda);
+        itemVendas.add(itemVenda);
+        itemVenda = new ItemVenda();
     }
 
 
@@ -117,4 +141,30 @@ public class VendaMB implements Serializable {
     public void setClientesFiltrados(List<Cliente> clientesFiltrados) {
         this.clientesFiltrados = clientesFiltrados;
     }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+
 }

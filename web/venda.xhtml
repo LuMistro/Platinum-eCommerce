@@ -18,7 +18,8 @@
                 <p:tab id="cliente" title="Cliente">
                     <p:panel header="Detalhes do cliente" styleClass="ui-fluid">
                         <p:messages/>
-                        <h:panelGrid columns="2" columnClasses="label, value">
+                        <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-1 , ui-lg-11"
+                                     styleClass="ui-panelgrid-blank">
                             <p:outputLabel value="Código: *"/>
                             <p:inputText value="#{vendaMB.venda.cliente.id}" readonly="true"/>
                             <p:outputLabel value="CPF: *"/>
@@ -29,7 +30,7 @@
 
                             <p:outputLabel value="Email: "/>
                             <p:inputText value="#{vendaMB.venda.cliente.email}" readonly="true"/>
-                        </h:panelGrid>
+                        </p:panelGrid>
 
 
                         <p:dataTable var="cliente" value="#{vendaMB.clientes}" widgetVar="tabelaClientes"
@@ -87,24 +88,70 @@
                 </p:tab>
 
                 <p:tab id="produto" title="Produtos">
-                    <p:panel header="Selecione um ou mais produtos">
+                    <p:panel header="Selecione um ou mais produtos" styleClass="ui-fluid">
                         <p:messages/>
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            <h:outputText value="Street: "/>
-                            <p:inputText value="#{userWizard.user.street}"/>
+                        <p:panelGrid columns="5" layout="grid" columnClasses="ui-lg-1 , ui-lg-3 , ui-lg-1 , ui-lg-1">
+                            <p:outputLabel for="comboProdutos" value="Produto: "/>
+                            <p:selectOneMenu id="comboProdutos" value="#{vendaMB.produto}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Selecione um produto..."/>
+                                <f:selectItems value="#{vendaMB.produtos}" var="pr" itemLabel="#{pr.nome}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Quantidade: "/>
+                            <p:inputText id="campoQtd" value="#{vendaMB.quantidade}"/>
+                            <p:commandButton action="#{vendaMB.adicionarItem}" update="@form" value="Adicionar"
+                                             icon="fa fa-plus-square"/>
+                        </p:panelGrid>
 
-                            <h:outputText value="Postal Code: "/>
-                            <p:inputText value="#{userWizard.user.postalCode}"/>
+                        <p:dataTable id="tabelaItemVendas" var="iv" value="#{vendaMB.itemVendas}" widgetVar="tabelaItemVendas">
 
-                            <h:outputText value="City: "/>
-                            <p:inputText value="#{userWizard.user.city}"/>
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText value="Buscar por produtos "/>
+                                    <p:inputText onkeyup="PF('tabelaItemVendas').filter()"
+                                                 style="width:280px" placeholder="Coloração X"/>
+                                </p:outputPanel>
+                            </f:facet>
 
-                        </h:panelGrid>
+                            <p:column
+                                    headerText="CODIGO"
+                                    sortBy="#{iv.produto.id}">
+                                <h:outputText value="#{iv.produto.id}"/>
+                            </p:column>
+
+                            <p:column
+                                    headerText="NOME"
+                                    sortBy="#{iv.produto.nome}">
+                                <h:outputText value="#{iv.produto.nome}"/>
+                            </p:column>
+
+                            <p:column
+                                    headerText="PREÇO">
+                                <h:outputText value="#{iv.produto.preco}"/>
+                            </p:column>
+
+                            <p:column
+                                    headerText="QUANTIDADE">
+                                <h:outputText value="#{iv.quantidade}"/>
+                            </p:column>
+
+                            <p:column
+                                    headerText="REMOVER">
+                                <p:commandButton
+                                        update="@form"
+                                        icon="fa fa-remove">
+                                    <f:setPropertyActionListener
+                                            target="#{vendaMB.itemVenda}"
+                                            value="#{iv}"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+
                     </p:panel>
                 </p:tab>
 
                 <p:tab id="pagamento" title="Forma de Pagamento">
-                    <p:panel header="Informações de forma de pagamento">
+                    <p:panel header="Informações de forma de pagamento" styleClass="ui-fluid">
                         <p:messages/>
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Email: *"/>

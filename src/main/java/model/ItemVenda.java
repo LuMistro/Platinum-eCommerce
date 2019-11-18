@@ -3,6 +3,7 @@ package model;
 import interfaces.IBaseModel;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class ItemVenda implements IBaseModel {
@@ -14,6 +15,8 @@ public class ItemVenda implements IBaseModel {
     private Produto produto;
     @ManyToOne
     private Venda venda;
+
+    private Integer quantidade;
 
 
     @Override
@@ -40,5 +43,26 @@ public class ItemVenda implements IBaseModel {
 
     public void setVenda(Venda venda) {
         this.venda = venda;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ItemVenda itemVenda = (ItemVenda) o;
+        return Objects.equals(id, itemVenda.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
