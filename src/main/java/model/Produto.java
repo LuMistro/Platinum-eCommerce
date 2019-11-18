@@ -17,6 +17,9 @@ public class Produto implements IBaseModel {
     private Integer id;
     private String sku;
     private String nome;
+    private Double preco;
+    private Integer quantidadeEstoque;
+    private String foto;
 
     @Override
     public Integer getId() {
@@ -43,6 +46,30 @@ public class Produto implements IBaseModel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public Integer getQuantidadeEstoque() {
+        return quantidadeEstoque;
+    }
+
+    public void setQuantidadeEstoque(Integer quantidadeEstoque) {
+        this.quantidadeEstoque = quantidadeEstoque;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     @Override

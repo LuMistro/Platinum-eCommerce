@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @ManagedBean
@@ -16,6 +17,7 @@ public class ProdutoMB implements Serializable {
     private Produto produto;
     private IBaseDao<Produto> produtoDao;
     private List<Produto> produtos;
+    private String[] fotos;
 
     @PostConstruct
     private void init() {
@@ -25,6 +27,10 @@ public class ProdutoMB implements Serializable {
 
     public void limpar() {
         produto = new Produto();
+    }
+
+    public void salvar(){
+        produtoDao.salvar(produto);
     }
 
     public void atualizar() {
@@ -46,10 +52,14 @@ public class ProdutoMB implements Serializable {
     }
 
     public List<Produto> getProdutos() {
-        return produtos;
+        return produtoDao.buscarTodos();
     }
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public List<String> getFotos() {
+        return Arrays.asList(fotos);
     }
 }
