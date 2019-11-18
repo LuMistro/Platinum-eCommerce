@@ -17,3 +17,30 @@
     right: 300px;
 
 }
+
+.label {
+    width:20%;
+    padding:4px;
+}
+
+.value {
+    width:80%;
+    padding:4px;
+}
+
+.grid {
+    width:100%;
+}
+
+.error {
+    color: red;
+}
+
+.outputLabel {
+    font-weight: bold;
+}
+
+.grid {
+    width:33%;
+    padding:4px;
+}
