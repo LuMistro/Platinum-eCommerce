@@ -1,11 +1,9 @@
 package model;
 
 import interfaces.IBaseModel;
+import org.primefaces.model.UploadedFile;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 
@@ -19,7 +17,8 @@ public class Produto implements IBaseModel {
     private String nome;
     private Double preco;
     private Integer quantidadeEstoque;
-    private String foto;
+
+    private UploadedFile foto;
 
     @Override
     public Integer getId() {
@@ -64,11 +63,11 @@ public class Produto implements IBaseModel {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public String getFoto() {
+    public UploadedFile getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(UploadedFile foto) {
         this.foto = foto;
     }
 

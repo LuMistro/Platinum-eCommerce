@@ -40,4 +40,15 @@
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
+    <mime-mapping>
+        <extension>png</extension>
+        <mime-type>image/png</mime-type>
+    </mime-mapping>
+
+    <filter-mapping>
+        <filter-name>PrimeFaces FileUpload Filter</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </filter-mapping>
+
 </web-app>
