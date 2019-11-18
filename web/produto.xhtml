@@ -15,6 +15,18 @@
                              columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
                              styleClass="ui-panelgrid-blank">
 
+                    <h:form enctype="multipart/form-data">
+                        <p:fileUpload value="#{produtoMB.produto.foto}" mode="simple" skinSimple="true"/>
+                        <br />
+                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" disabled="true" />
+                    </h:form>
+
+                    <p:outputLabel value="Foto do produto: " for="foto"/>
+                    <h:form id="foto" enctype="multipart/form-data">
+                        <p:fileUpload value="#{produtoMB.produto.foto}" mode="simple" skinSimple="true"/>
+                    </h:form>
+
+
                     <p:outputLabel value="Nome do produto: " for="nome"/>
                     <p:inputText id="nome" required="true"
                                  requiredMessage="Nome deve ser preenchido"
@@ -27,29 +39,28 @@
                                  placeholder="Informe o preço do produto"
                                  value="#{produtoMB.produto.preco}"/>
 
-                    <p:outputLabel value="Preço do produto: " for="quantidade"/>
+                    <p:outputLabel value="Quantidade em estoque: " for="quantidade"/>
                     <p:inputText id="quantidade" required="true"
                                  requiredMessage="Quantidade deve ser preenchido"
                                  placeholder="Informe a quantidade do produto em estoque"
                                  value="#{produtoMB.produto.quantidadeEstoque}"/>
                 </p:panelGrid>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton value="Salvar" update="tabela campos" icon="fa fa-save"
+                                         action="#{produtoMB.salvar}"/>
+
+                        <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                                         process="@this"
+                                         action="#{produtoMB.limpar}"/>
+                    </f:facet>
+                </p:toolbar>
             </div>
-            <p:toolbar>
-                <f:facet name="left">
-                    <p:commandButton value="Salvar" update="tabela campos" icon="fa fa-save"
-                                     action="#{produtoMB.salvar}"/>
-
-                    <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
-                                     process="@this"
-                                     action="#{produtoMB.limpar}"/>
-                </f:facet>
-            </p:toolbar>
-
         </h:form>
         <h:form id="tabela">
             <p:dataTable var="produto" value="#{produtoMB.produtos}">
                 <p:column headerText="SKU">
-                    <h:outputText value="#{produto.sku}"/>
+                    <h:outputText value="#{produto.id}"/>
                 </p:column>
 
                 <p:column headerText="Nome">
@@ -57,12 +68,17 @@
                 </p:column>
 
                 <p:column headerText="Preço Unitário">
-                    <h:outputText value="#{produto.precoUnitario}"/>
+                    <h:outputText value="#{produto.preco}"/>
                 </p:column>
 
                 <p:column headerText="Quantidade em Estoque">
                     <h:outputText value="#{produto.quantidadeEstoque}"/>
                 </p:column>
+
+                <p:column headerText="Foto do Produto">
+                    <p:graphicImage name="resources/imagens/#{produto.foto}"/>
+                </p:column>
+
             </p:dataTable>
         </h:form>
     </ui:define>

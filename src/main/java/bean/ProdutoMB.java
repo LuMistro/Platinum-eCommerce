@@ -22,6 +22,7 @@ public class ProdutoMB implements Serializable {
     @PostConstruct
     private void init() {
         inicializaObjetos();
+        atualizar();
     }
 
 
@@ -29,8 +30,12 @@ public class ProdutoMB implements Serializable {
         produto = new Produto();
     }
 
-    public void salvar(){
+
+    public void salvar() {
         produtoDao.salvar(produto);
+        atualizar();
+        limpar();
+
     }
 
     public void atualizar() {
@@ -52,11 +57,15 @@ public class ProdutoMB implements Serializable {
     }
 
     public List<Produto> getProdutos() {
-        return produtoDao.buscarTodos();
+        return produtos;
     }
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public void setFotos(String[] fotos) {
+        this.fotos = fotos;
     }
 
     public List<String> getFotos() {

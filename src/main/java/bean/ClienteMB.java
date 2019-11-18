@@ -3,6 +3,8 @@ package bean;
 import dao.ClienteDao;
 import interfaces.IBaseDao;
 import model.Cliente;
+import model.enums.Cidades;
+import model.enums.Estados;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -20,8 +22,14 @@ public class ClienteMB implements Serializable {
     @PostConstruct
     private void init() {
         inicializaObjetos();
+        atualizar();
     }
 
+    public void salvar() {
+        clienteDao.salvar(cliente);
+        limpar();
+        atualizar();
+    }
 
     public void limpar() {
         cliente = new Cliente();
