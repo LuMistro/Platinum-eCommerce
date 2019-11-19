@@ -15,17 +15,14 @@
                              columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
                              styleClass="ui-panelgrid-blank">
 
-                    <h:form enctype="multipart/form-data">
-                        <p:fileUpload value="#{produtoMB.produto.foto}" mode="simple" skinSimple="true"/>
-                        <br />
-                        <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" disabled="true" />
-                    </h:form>
-
                     <p:outputLabel value="Foto do produto: " for="foto"/>
                     <h:form id="foto" enctype="multipart/form-data">
-                        <p:fileUpload value="#{produtoMB.produto.foto}" mode="simple" skinSimple="true"/>
+                        <p:fileUpload fileUploadListener="#{produtoMB.fotos}"
+                                      mode="advanced"
+                                      update="messages"
+                                      sizeLimit="5000000"
+                                      allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/"/>
                     </h:form>
-
 
                     <p:outputLabel value="Nome do produto: " for="nome"/>
                     <p:inputText id="nome" required="true"

@@ -7,20 +7,21 @@
 <h:form>
 
 
-    <p:panelGrid columns="2"
+    <p:panelGrid columns="1"
                  styleClass="ui-panelgrid-blank">
-
         <p:commandButton icon="fa fa-bars" oncomplete="PF('sidebar1').show()"/>
-
-
     </p:panelGrid>
 
 
     <p:sidebar widgetVar="sidebar1" baseZIndex="10000">
         <h1 style="font-weight:normal">Menu</h1>
-        <p:button value="Página Principal" outcome="index.xhtml"/>
-        <p:button value="Clientes" outcome="cliente.xhtml"/>
-        <p:button value="Produtos" outcome="produto.xhtml"/>
+        <p:button styleClass="botaoMenu" value="Página Principal" outcome="index.xhtml" style="text-align: center"/>
+        <br/>
+        <p:button styleClass="botaoMenu" value="Clientes" outcome="cliente.xhtml" style="text-align: center"/>
+        <br/>
+        <p:button styleClass="botaoMenu" value="Produtos" outcome="produto.xhtml" style="text-align: center"/>
+        <br/>
+        <p:button styleClass="botaoMenu" value="Venda" outcome="venda.xhtml" style="text-align: center"/>
     </p:sidebar>
 
 
