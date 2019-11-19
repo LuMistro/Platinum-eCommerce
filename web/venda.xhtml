@@ -20,69 +20,35 @@
                         <p:messages/>
                         <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-1 , ui-lg-11"
                                      styleClass="ui-panelgrid-blank">
-                            <p:outputLabel value="Código: *"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.id}" readonly="true"/>
                             <p:outputLabel value="CPF: *"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.cpf}" readonly="true"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.cpf}"/>
 
                             <p:outputLabel value="Nome: *"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.nome}" readonly="true"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.nome}"/>
 
                             <p:outputLabel value="Email: "/>
-                            <p:inputText value="#{vendaMB.venda.cliente.email}" readonly="true"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.email}"/>
                         </p:panelGrid>
 
+                    </p:panel>
 
-                        <p:dataTable var="cliente" value="#{vendaMB.clientes}" widgetVar="tabelaClientes"
-                                     emptyMessage="Nenhum cliente encontrato"
-                                     filteredValue="#{vendaMB.clientesFiltrados}">
+                    <p:panel header="Detalhes de entrega" styleClass="ui-fluid">
+                        <p:messages/>
+                        <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-1 , ui-lg-11"
+                                     styleClass="ui-panelgrid-blank">
+                            <p:outputLabel value="CEP: *"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.cep}"/>
+                            <p:outputLabel value="Estado: *"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.estado}"/>
+                            <p:outputLabel value="Cidade: *"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.cidade}"/>
 
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Buscar por clientes "/>
-                                    <p:inputText id="globalFilter" onkeyup="PF('tabelaClientes').filter()"
-                                                 style="width:280px" placeholder="zézinho da silva"/>
-                                </p:outputPanel>
-                            </f:facet>
+                            <p:outputLabel value="Bairro: "/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.bairro}"/>
 
-                            <p:column
-                                    filterBy="#{cliente.id}"
-                                    sortBy="#{cliente.id}"
-                                    headerText="CODIGO"
-                                    filterMatchMode="contains">
-                                <h:outputText value="#{cliente.id}"/>
-                            </p:column>
-
-                            <p:column
-                                    filterBy="#{cliente.cpf}"
-                                    headerText="CPF"
-                                    filterMatchMode="contains">
-                                <h:outputText value="#{cliente.cpf}"/>
-                            </p:column>
-
-                            <p:column filterBy="#{cliente.nome}"
-                                      headerText="NOME"
-                                      filterMatchMode="contains">
-                                <h:outputText value="#{cliente.nome}"/>
-                            </p:column>
-
-                            <p:column filterBy="#{cliente.email}"
-                                      headerText="EMAIL"
-                                      filterMatchMode="contains">
-                                <h:outputText value="#{cliente.email}"/>
-                            </p:column>
-
-                            <p:column
-                                    headerText="SELECIONAR">
-                                <p:commandButton
-                                        update="@form"
-                                        icon="fa fa-hand-o-up">
-                                    <f:setPropertyActionListener
-                                            target="#{vendaMB.venda.cliente}"
-                                            value="#{cliente}"/>
-                                </p:commandButton>
-                            </p:column>
-                        </p:dataTable>
+                            <p:outputLabel value="Logradouro*: "/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.logradouro}"/>
+                        </p:panelGrid>
 
                     </p:panel>
                 </p:tab>
@@ -102,7 +68,8 @@
                                              icon="fa fa-plus-square"/>
                         </p:panelGrid>
 
-                        <p:dataTable id="tabelaItemVendas" var="iv" value="#{vendaMB.itemVendas}" widgetVar="tabelaItemVendas">
+                        <p:dataTable id="tabelaItemVendas" var="iv" value="#{vendaMB.itemVendas}"
+                                     widgetVar="tabelaItemVendas">
 
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -126,7 +93,9 @@
 
                             <p:column
                                     headerText="PREÇO">
-                                <h:outputText value="#{iv.produto.preco}"/>
+                                <h:outputText value="#{iv.produto.preco}">
+                                    <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                                </h:outputText>
                             </p:column>
 
                             <p:column
@@ -138,12 +107,25 @@
                                     headerText="REMOVER">
                                 <p:commandButton
                                         update="@form"
-                                        icon="fa fa-remove">
+                                        icon="fa fa-remove"
+                                        action="#{vendaMB.removerItem}">
                                     <f:setPropertyActionListener
                                             target="#{vendaMB.itemVenda}"
                                             value="#{iv}"/>
                                 </p:commandButton>
                             </p:column>
+
+                            <p:summaryRow>
+                                <p:column colspan="3" style="text-align:right">
+                                    <h:outputText value="Total:" />
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{vendaMB.venda.valorTotal}">
+                                        <f:convertNumber type="currency" currencySymbol="$" />
+                                    </h:outputText>
+                                </p:column>
+                            </p:summaryRow>
+
                         </p:dataTable>
 
 
@@ -153,61 +135,96 @@
                 <p:tab id="pagamento" title="Forma de Pagamento">
                     <p:panel header="Informações de forma de pagamento" styleClass="ui-fluid">
                         <p:messages/>
-                        <h:panelGrid columns="2" columnClasses="label, value">
-                            <h:outputText value="Email: *"/>
-                            <p:inputText value="#{userWizard.user.email}" required="true" label="Email"/>
+                        <p:panelGrid columns="2" layout="grid" columnClasses="ui-lg-2 , ui-lg-10">
+                            <h:outputText value="Formas de pagamento: *"/>
+                            <p:selectOneMenu id="comboFormasDePagamento" value="#{vendaMB.venda.formaPagamento}">
+                                <f:selectItem noSelectionOption="true" itemLabel="Selecione um forma..."/>
+                                <f:selectItems value="#{vendaMB.formaPagamentos}" var="f" itemLabel="#{f}"/>
+                            </p:selectOneMenu>
+                            <h:outputText value="Aplicar desconto"/>
+                            <p:inputText value="#{vendaMB.venda.valorDesconto}">
+                                <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                            </p:inputText>
 
-                            <h:outputText value="Phone: "/>
-                            <p:inputText value="#{userWizard.user.phone}"/>
-
-                            <h:outputText value="Additional Info: "/>
-                            <p:inputText value="#{userWizard.user.info}"/>
-                        </h:panelGrid>
+                            <h:outputText value="Valor total"/>
+                            <p:inputText readonly="true" value="#{vendaMB.venda.valorTotal}"/>
+                        </p:panelGrid>
                     </p:panel>
                 </p:tab>
 
-                <p:tab id="confirmacao" title="Confirmacao">
+                <p:tab id="confirmacao" title="Confirmacao de compra">
                     <p:panel header="Confirmação">
-                        <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Firstname: "/>
-                                <h:outputText value="#{userWizard.user.firstname}" styleClass="outputLabel"/>
+                        <p:panel header="Informações de Cliente" styleClass="ui-fluid">
+                        <p:messages/>
+                        <p:panelGrid columns="4" layout="grid" columnClasses="ui-lg-2 , ui-lg-3 , ui-lg-2 , ui-lg-4">
+                            <h:outputText value="CPF:"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.cpf}"/>
+                            <h:outputText value="Nome:"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.nome}"/>
+                            <h:outputText value="Estado:"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.estado}"/>
+                            <h:outputText value="Cidade:"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.cidade}"/>
+                        </p:panelGrid>
+                    </p:panel>
+                        <p:panel header="Informações de Venda" styleClass="ui-fluid">
+                        <p:messages/>
+                        <p:panelGrid columns="4" layout="grid"
+                                     columnClasses="ui-lg-2 , ui-lg-3 , ui-lg-2 , ui-lg-4">
+                            <h:outputText value="Forma de pagamento:"/>
+                            <p:inputText value="#{vendaMB.venda.formaPagamento}"/>
+                            <h:outputText value="Valor Desconto:"/>
+                            <p:inputText value="#{vendaMB.venda.valorDesconto}">
+                                <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                            </p:inputText>
+                            <h:outputText value="Valor Total:"/>
+                            <p:inputText value="#{vendaMB.venda.valorTotal}"/>
+                        </p:panelGrid>
+                    </p:panel>
 
-                                <h:outputText value="Lastname: "/>
-                                <h:outputText value="#{userWizard.user.lastname}" styleClass="outputLabel"/>
+                        <p:panel header="Informações dos Itens de venda" styleClass="ui-fluid">
+                            <p:messages/>
 
-                                <h:outputText value="Age: "/>
-                                <h:outputText value="#{userWizard.user.age}" styleClass="outputLabel"/>
-                            </h:panelGrid>
+                            <p:dataTable id="tabelaItemVendasRevisao" var="itemVRevisao" value="#{vendaMB.venda.items}"
+                                         widgetVar="tabelaItemVendas">
 
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Street: "/>
-                                <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
+                                <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText value="Buscar por produtos "/>
+                                        <p:inputText onkeyup="PF('tabelaItemVendas').filter()"
+                                                     style="width:280px" placeholder="Coloração X"/>
+                                    </p:outputPanel>
+                                </f:facet>
 
-                                <h:outputText value="Postal: "/>
-                                <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
+                                <p:column
+                                        headerText="CODIGO"
+                                        sortBy="#{itemVRevisao.produto.id}">
+                                    <h:outputText value="#{itemVRevisao.produto.id}"/>
+                                </p:column>
 
-                                <h:outputText value="City: "/>
-                                <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
-                            </h:panelGrid>
+                                <p:column
+                                        headerText="NOME"
+                                        sortBy="#{itemVRevisao.produto.nome}">
+                                    <h:outputText value="#{itemVRevisao.produto.nome}"/>
+                                </p:column>
 
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Email: "/>
-                                <h:outputText value="#{userWizard.user.email}" styleClass="outputLabel"/>
+                                <p:column
+                                        headerText="PREÇO">
+                                    <h:outputText value="#{itemVRevisao.produto.preco}">
+                                        <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                                    </h:outputText>
+                                </p:column>
 
-                                <h:outputText value="Phone "/>
-                                <h:outputText value="#{userWizard.user.phone}" styleClass="outputLabel"/>
+                                <p:column
+                                        headerText="QUANTIDADE">
+                                    <h:outputText value="#{itemVRevisao.quantidade}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>
 
-                                <h:outputText value="Info: "/>
-                                <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>
 
-                                <h:outputText/>
-                                <h:outputText/>
-                            </h:panelGrid>
-                        </h:panelGrid>
 
-                        <p:commandButton value="Submit" action="#{vendaMB.efetivarVenda}" update="growl"
-                                         process="@this"/>
+                        <p:commandButton value="Finalizar Compra" action="#{vendaMB.efetivarVenda}" update="growl" />
                     </p:panel>
                 </p:tab>
             </p:wizard>

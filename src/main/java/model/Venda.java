@@ -20,6 +20,12 @@ public class Venda implements IBaseModel {
     @Enumerated
     FormaPagamento formaPagamento;
 
+    @Column(columnDefinition = "Decimal (10,2)")
+    private Double valorTotal;
+
+    @Column(columnDefinition = "Decimal (10,2)")
+    private Double valorDesconto;
+
 
     @Override
     public Integer getId() {
@@ -53,6 +59,22 @@ public class Venda implements IBaseModel {
 
     public void setFormaPagamento(FormaPagamento formaPagamento) {
         this.formaPagamento = formaPagamento;
+    }
+
+    public Double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(Double valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public Double getValorDesconto() {
+        return valorDesconto;
+    }
+
+    public void setValorDesconto(Double valorDesconto) {
+        this.valorDesconto = valorDesconto;
     }
 
     @Override

@@ -17,8 +17,7 @@ public class Produto implements IBaseModel {
     private String nome;
     private Double preco;
     private Integer quantidadeEstoque;
-
-    private UploadedFile foto;
+    private String foto;
 
     @Override
     public Integer getId() {
@@ -63,14 +62,6 @@ public class Produto implements IBaseModel {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public UploadedFile getFoto() {
-        return foto;
-    }
-
-    public void setFoto(UploadedFile foto) {
-        this.foto = foto;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,5 +73,13 @@ public class Produto implements IBaseModel {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

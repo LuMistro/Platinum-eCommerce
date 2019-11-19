@@ -1,21 +1,22 @@
 package bean;
 
-import com.lowagie.text.pdf.AcroFields;
 import dao.ClienteDao;
+import dao.EnderecoDao;
 import dao.ProdutoDao;
 import dao.VendaDao;
 import interfaces.IBaseDao;
-import model.Cliente;
-import model.ItemVenda;
-import model.Produto;
-import model.Venda;
+import model.*;
+import model.enums.FormaPagamento;
 import org.primefaces.event.FlowEvent;
+import util.Mensagem;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
+import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 @ManagedBean
@@ -36,8 +37,8 @@ public class VendaMB implements Serializable {
     private IBaseDao<Produto> produtoDao;
 
     private IBaseDao<Cliente> clienteDao;
-    private List<Cliente> clientes;
-    private List<Cliente> clientesFiltrados;
+    private IBaseDao<Endereco> enderecoDao;
+    List<FormaPagamento> formaPagamentos;
 
     @PostConstruct
     private void init() {
@@ -60,17 +61,19 @@ public class VendaMB implements Serializable {
     private void inicializaObjetos() {
         venda = new Venda();
         venda.setCliente(new Cliente());
+        venda.getCliente().setEndereco(new Endereco());
+        venda.setItems(new ArrayList<ItemVenda>());
         produto = new Produto();
         itemVenda = new ItemVenda();
         vendaDao = new VendaDao();
         clienteDao = new ClienteDao();
         produtoDao = new ProdutoDao();
+        enderecoDao = new EnderecoDao();
         vendas = new ArrayList<>();
-        clientes = new ArrayList<>();
         produtos = new ArrayList<>();
         itemVendas = new ArrayList<>();
+        formaPagamentos = new ArrayList<FormaPagamento>(EnumSet.allOf(FormaPagamento.class));
 
-        clientes = clienteDao.buscarTodos();
         produtos = produtoDao.buscarTodos();
     }
 
@@ -83,13 +86,66 @@ public class VendaMB implements Serializable {
         itemVenda = new ItemVenda();
     }
 
+    public void removerItem() {
+        itemVendas.remove(itemVenda);
+    }
+
 
     public void efetivarVenda() {
+        if (venda.getItems().isEmpty()) {
+            Mensagem.addMensagemWarn("vendaSemItens");
+            return;
+        }
+
+        if (venda.getCliente() == null) {
+            Mensagem.addMensagemWarn("vendaSemCliente");
+            return;
+        }
+
+        if (venda.getFormaPagamento() == null) {
+            Mensagem.addMensagemWarn("vendaSemFormaPagamento");
+        }
+
+        vendaDao.salvar(venda);
 
     }
 
 
     public String onFlowProcess(FlowEvent event) {
+        if (!itemVendas.isEmpty()) {
+            venda.setItems(itemVendas);
+        }
+
+
+        if (venda.getValorTotal() == null) {
+            venda.setValorTotal(0.0);
+        }
+
+        if (venda.getValorDesconto() == null) {
+            venda.setValorDesconto(0.0);
+        }
+
+        if (venda.getValorTotal() == 0.0) {
+            if (!venda.getItems().isEmpty()) {
+                List<ItemVenda> itemsDaVenda = venda.getItems();
+                for (int i = 0; i < itemsDaVenda.size(); i++) {
+                    ItemVenda umItemDaVenda = itemsDaVenda.get(i);
+                    venda.setValorTotal(venda.getValorTotal() + (umItemDaVenda.getProduto().getPreco() * umItemDaVenda.getQuantidade()));
+                }
+            }
+        } else {
+            venda.setValorTotal(venda.getValorTotal() - venda.getValorDesconto());
+        }
+
+
+        if (venda.getCliente().getEndereco().getCep() != null) {
+            enderecoDao.salvar(venda.getCliente().getEndereco());
+        }
+
+        if (venda.getCliente().getCpf() != null) {
+            clienteDao.salvar(venda.getCliente());
+        }
+
         return event.getNewStep();
     }
 
@@ -126,22 +182,6 @@ public class VendaMB implements Serializable {
         this.itemVendas = itemVendas;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-
-    public List<Cliente> getClientesFiltrados() {
-        return clientesFiltrados;
-    }
-
-    public void setClientesFiltrados(List<Cliente> clientesFiltrados) {
-        this.clientesFiltrados = clientesFiltrados;
-    }
-
     public Produto getProduto() {
         return produto;
     }
@@ -166,5 +206,11 @@ public class VendaMB implements Serializable {
         this.quantidade = quantidade;
     }
 
+    public List<FormaPagamento> getFormaPagamentos() {
+        return formaPagamentos;
+    }
 
+    public void setFormaPagamentos(List<FormaPagamento> formaPagamentos) {
+        this.formaPagamentos = formaPagamentos;
+    }
 }

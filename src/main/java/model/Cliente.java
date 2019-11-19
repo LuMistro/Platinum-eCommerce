@@ -15,7 +15,8 @@ public class Cliente implements IBaseModel {
     private String nome;
     private String cpf;
     private String email;
-    private String endereco;
+    @OneToOne
+    private Endereco endereco;
     @OneToMany(mappedBy = "cliente")
     private List<Venda> vendas;
 
@@ -53,11 +54,12 @@ public class Cliente implements IBaseModel {
         this.email = email;
     }
 
-    public String getEndereco() {
+
+    public Endereco getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
 

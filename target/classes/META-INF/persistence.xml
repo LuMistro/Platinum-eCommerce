@@ -11,6 +11,7 @@
         <class>model.Cliente</class>
         <class>model.ItemVenda</class>
         <class>model.Venda</class>
+        <class>model.Endereco</class>
 
 
         <properties>
