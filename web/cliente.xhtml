@@ -9,6 +9,7 @@
     <ui:define name="titulo">Cadastro de cliente</ui:define>
 
     <ui:define name="conteudo">
+        <p:growl id="messages" sticky="true"/>
         <div class="corpo">
             <h:form styleClass="campos">
 
@@ -45,10 +46,10 @@
 
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" update="campos" icon="fa fa-save"
+                        <p:commandButton value="Salvar" update="@this messages" icon="fa fa-save"
                                          action="#{clienteMB.salvar}"/>
 
-                        <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                        <p:commandButton value="Limpar" update="@this messages" icon="fa fa-eraser"
                                          process="@this"
                                          action="#{clienteMB.limpar}"/>
                     </f:facet>

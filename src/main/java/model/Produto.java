@@ -1,9 +1,11 @@
 package model;
 
 import interfaces.IBaseModel;
+import org.hibernate.annotations.Type;
 import org.primefaces.model.UploadedFile;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.Objects;
 
 
@@ -62,6 +64,14 @@ public class Produto implements IBaseModel {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -75,11 +85,4 @@ public class Produto implements IBaseModel {
         return Objects.hash(id);
     }
 
-    public String getFoto() {
-        return foto;
-    }
-
-    public void setFoto(String foto) {
-        this.foto = foto;
-    }
 }

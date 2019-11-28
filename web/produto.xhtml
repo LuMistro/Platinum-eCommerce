@@ -9,6 +9,7 @@
     <ui:define name="titulo">Cadastro de produto</ui:define>
 
     <ui:define name="conteudo">
+        <p:growl id="messages"/>
         <h:form id="campos">
             <div class="corpo">
                 <p:panelGrid columns="2" layout="grid"
@@ -16,13 +17,13 @@
                              styleClass="ui-panelgrid-blank">
 
                     <p:outputLabel value="Foto do produto: " for="foto"/>
-                    <h:form id="foto" enctype="multipart/form-data">
-                        <p:fileUpload fileUploadListener="#{produtoMB.fotos}"
-                                      mode="advanced"
-                                      update="messages"
-                                      sizeLimit="5000000"
-                                      allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/"/>
-                    </h:form>
+
+                    <p:fileUpload id="foto" listener="#{produtoMB.handleFileUpload}"
+                                  mode="advanced"
+                                  dragDropSupport="false"
+                                  auto="true"
+                                  update="messages" sizeLimit="100000"
+                                  fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
 
                     <p:outputLabel value="Nome do produto: " for="nome"/>
                     <p:inputText id="nome" required="true"
@@ -44,10 +45,10 @@
                 </p:panelGrid>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" update="tabela campos" icon="fa fa-save"
+                        <p:commandButton value="Salvar" update="tabela messages @this" icon="fa fa-save"
                                          action="#{produtoMB.salvar}"/>
 
-                        <p:commandButton value="Limpar" update="campos" icon="fa fa-eraser"
+                        <p:commandButton value="Limpar" update="campos messages @this" icon="fa fa-eraser"
                                          process="@this"
                                          action="#{produtoMB.limpar}"/>
                     </f:facet>
@@ -73,7 +74,7 @@
                 </p:column>
 
                 <p:column headerText="Foto do Produto">
-                    <p:graphicImage name="resources/imagens/#{produto.foto}"/>
+                    <h:outputText name="#{produto.foto}"/>
                 </p:column>
 
             </p:dataTable>
