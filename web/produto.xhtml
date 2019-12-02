@@ -19,11 +19,11 @@
                     <p:outputLabel value="Foto do produto: " for="foto"/>
 
                     <p:fileUpload id="foto" fileUploadListener="#{produtoMB.handleFileUpload}"
-                                  mode="advanced"
-                                  dragDropSupport="false"
+                                  styleClass="inputs"
+                                  sizeLimit="5000000"
+                                  fileLimit="1"
                                   auto="true"
-                                  update="messages" sizeLimit="100000"
-                                  fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                  update="messages" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
 
                     <p:outputLabel value="Nome do produto: " for="nome"/>
                     <p:inputText id="nome" required="true"
@@ -74,7 +74,7 @@
                 </p:column>
 
                 <p:column headerText="Foto do Produto">
-                    <h:outputText name="#{produto.foto}"/>
+                    <h:graphicImage value="#{produto.foto}"/>
                 </p:column>
 
             </p:dataTable>

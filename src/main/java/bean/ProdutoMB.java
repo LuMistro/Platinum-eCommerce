@@ -31,6 +31,9 @@ public class ProdutoMB implements Serializable {
     private Produto produto;
     private IBaseDao<Produto> produtoDao;
     private List<Produto> produtos;
+    private String caminhoFoto = "C:/Imagens/";
+    private String nomeFoto = new String();
+
 
     @PostConstruct
     private void init() {
@@ -45,7 +48,11 @@ public class ProdutoMB implements Serializable {
 
 
     public void salvar() {
-        produtoDao.salvar(produto);
+        if (produto.getId() == null) {
+            produtoDao.salvar(produto);
+        } else {
+            produtoDao.alterar(produto);
+        }
         atualizar();
         limpar();
     }
@@ -79,23 +86,23 @@ public class ProdutoMB implements Serializable {
 //    public void upload() {
 //        if (file != null) {
 //            produto.setFoto(file.getFileName());
-//            System.out.println("passou aqui >>>>" + file.getFileName());
 //            FacesMessage message = new FacesMessage("Successful", file.getFileName() + " is uploaded.");
 //            FacesContext.getCurrentInstance().addMessage(null, message);
 //        }
 //    }
 
     public void handleFileUpload(FileUploadEvent event) {
-        System.out.println(event.getFile().getFileName() + ">>>>>>>>>>>>>>>>>>");
 
         try {
             Path destino = Paths.get("C:/Imagens", event.getFile().getFileName());
             Files.write(destino, event.getFile().getContents());
+            nomeFoto = destino.getFileName().toString();
+            produto.setFoto(caminhoFoto + nomeFoto);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+        FacesMessage msg = new FacesMessage("Upload de foto feito com sucesso", event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
