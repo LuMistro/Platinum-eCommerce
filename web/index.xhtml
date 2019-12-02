@@ -19,14 +19,18 @@
                     Produtos
                 </f:facet>
 
+                #{produtoMB.caminhoAbsoluto}/#{p.arquivo.nome}
+
+
                 <p:panel header="#{p.id}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage url="#{produtoMB.caminhoAbsoluto}/#{p.arquivo.nome}"/>
+                        <!--                        <p:graphicImage url="#{produtoMB.caminhoAbsoluto}/#{p.arquivo.nome}"/>-->
+                        <p:graphicImage dir="#{produtoMB.caminhoAbsoluto}/#{p.arquivo.nome}" styleClass="graphic"/>
                         <h:outputText value="#{p.nome}"/>
 
                         <p:commandLink update=":form:detalhesProduto" oncomplete="PF('ProdutoView').show()"
                                        title="View Detail">
-                            <h:outputText styleClass="pi pi-search" style="margin:0 auto;"/>
+                            <h:outputText styleClass="fa fa-search" style="margin:0 auto;"/>
                             <f:setPropertyActionListener value="#{p}" target="#{produtoMB.produto}"/>
                         </p:commandLink>
                     </h:panelGrid>

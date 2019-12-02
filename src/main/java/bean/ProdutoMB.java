@@ -27,7 +27,7 @@ public class ProdutoMB implements Serializable {
     private String arquivoSelecionado;
     private ArquivoService arquivoService;
     private ProdutoMB produtoMB;
-    private String caminhoAbsoluto = System.getProperty("user.home") + "/" + "ecommerce";
+    private String caminhoAbsoluto = System.getProperty("user.home") + "/" + "ecommerce/produtos";
 
     @PostConstruct
     private void init() {
