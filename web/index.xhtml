@@ -21,8 +21,7 @@
 
                 <p:panel header="#{p.id}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage name="demo/images/#{p.foto}"/>
-
+                        <p:graphicImage url="#{produtoMB.caminhoAbsoluto}/#{p.arquivo.nome}"/>
                         <h:outputText value="#{p.nome}"/>
 
                         <p:commandLink update=":form:detalhesProduto" oncomplete="PF('ProdutoView').show()"
@@ -42,7 +41,6 @@
                     <p:panelGrid columns="2" rendered="#{not empty produtoMB.produto}"
                                  columnClasses="label,value">
                         <f:facet name="header">
-                            <p:graphicImage name="demo/images/#{produtoMB.produto.foto}.png"/>
                         </f:facet>
 
                         <h:outputText value="Nome:"/>

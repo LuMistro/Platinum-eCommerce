@@ -2,9 +2,13 @@ package model;
 
 import interfaces.IBaseModel;
 import org.hibernate.annotations.Type;
+import org.hibernate.type.descriptor.sql.LobTypeMappings;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 import javax.persistence.*;
+import java.io.ByteArrayInputStream;
 import java.sql.Blob;
 import java.util.Objects;
 
@@ -19,7 +23,8 @@ public class Produto implements IBaseModel {
     private String nome;
     private Double preco;
     private Integer quantidadeEstoque;
-    private String foto;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    private Arquivo arquivo;
 
     @Override
     public Integer getId() {
@@ -64,12 +69,12 @@ public class Produto implements IBaseModel {
         this.quantidadeEstoque = quantidadeEstoque;
     }
 
-    public String getFoto() {
-        return foto;
+    public Arquivo getArquivo() {
+        return arquivo;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setArquivo(Arquivo arquivo) {
+        this.arquivo = arquivo;
     }
 
     @Override

@@ -12,6 +12,7 @@
         <class>model.ItemVenda</class>
         <class>model.Venda</class>
         <class>model.Endereco</class>
+        <class>model.Arquivo</class>
 
 
         <properties>

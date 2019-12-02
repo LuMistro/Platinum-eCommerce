@@ -2,26 +2,19 @@ package bean;
 
 import dao.ProdutoDao;
 import interfaces.IBaseDao;
+import model.Arquivo;
 import model.Produto;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import service.ArquivoService;
 
+import javax.activation.MimetypesFileTypeMap;
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-import javax.servlet.ServletContext;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.Serializable;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import javax.faces.bean.ViewScoped;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @ManagedBean
@@ -31,9 +24,10 @@ public class ProdutoMB implements Serializable {
     private Produto produto;
     private IBaseDao<Produto> produtoDao;
     private List<Produto> produtos;
-    private String caminhoFoto = "C:/Imagens/";
-    private String nomeFoto = new String();
-
+    private String arquivoSelecionado;
+    private ArquivoService arquivoService;
+    private ProdutoMB produtoMB;
+    private String caminhoAbsoluto = System.getProperty("user.home") + "/" + "ecommerce";
 
     @PostConstruct
     private void init() {
@@ -42,13 +36,19 @@ public class ProdutoMB implements Serializable {
     }
 
 
+
     public void limpar() {
         produto = new Produto();
+        arquivoSelecionado = null;
     }
 
 
     public void salvar() {
+
         if (produto.getId() == null) {
+            produto.setArquivo(ArquivoMB.arquivo);
+            Arquivo arquivoSalvo = arquivoService.inserirArquivoNoSistema(produto.getArquivo() , criarDiretorioArquivo(produto));
+            produto.setArquivo(arquivoSalvo);
             produtoDao.salvar(produto);
         } else {
             produtoDao.alterar(produto);
@@ -56,6 +56,24 @@ public class ProdutoMB implements Serializable {
         atualizar();
         limpar();
     }
+
+    private String criarDiretorioArquivo(Produto produto) {
+        return "produtos/";
+    }
+
+
+    public StreamedContent baixarArquivo(Produto produto) {
+      File file =  arquivoService.obterArquivo(produto.getArquivo().getNome() ,produto.getArquivo().getCaminho());
+        String contentType = new MimetypesFileTypeMap().getContentType(produto.getArquivo().getNome());
+        try {
+            FileInputStream stream = new FileInputStream(file);
+            return new DefaultStreamedContent(stream , contentType , produto.getArquivo().getNome());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
     public void atualizar() {
         produtos = produtoDao.buscarTodos();
@@ -65,6 +83,7 @@ public class ProdutoMB implements Serializable {
         produto = new Produto();
         produtoDao = new ProdutoDao();
         produtos = new ArrayList<>();
+        arquivoService = new ArquivoService();
     }
 
     public Produto getProduto() {
@@ -83,27 +102,27 @@ public class ProdutoMB implements Serializable {
         this.produtos = produtos;
     }
 
-//    public void upload() {
-//        if (file != null) {
-//            produto.setFoto(file.getFileName());
-//            FacesMessage message = new FacesMessage("Successful", file.getFileName() + " is uploaded.");
-//            FacesContext.getCurrentInstance().addMessage(null, message);
-//        }
-//    }
-
-    public void handleFileUpload(FileUploadEvent event) {
-
-        try {
-            Path destino = Paths.get("C:/Imagens", event.getFile().getFileName());
-            Files.write(destino, event.getFile().getContents());
-            nomeFoto = destino.getFileName().toString();
-            produto.setFoto(caminhoFoto + nomeFoto);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        FacesMessage msg = new FacesMessage("Upload de foto feito com sucesso", event.getFile().getFileName() + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    public String getArquivoSelecionado() {
+        return arquivoSelecionado;
     }
 
+    public void setArquivoSelecionado(String arquivoSelecionado) {
+        this.arquivoSelecionado = arquivoSelecionado;
+    }
+
+    public void handleFileUpload(FileUploadEvent event) throws IOException {
+        Arquivo arquivo = new Arquivo();
+        arquivo.setNome(event.getFile().getFileName());
+        arquivo.setStream(event.getFile().getInputstream());
+        produto.setArquivo(arquivo);
+        arquivoSelecionado = arquivo.getNome();
+    }
+
+    public String getCaminhoAbsoluto() {
+        return caminhoAbsoluto;
+    }
+
+    public void setCaminhoAbsoluto(String caminhoAbsoluto) {
+        this.caminhoAbsoluto = caminhoAbsoluto;
+    }
 }

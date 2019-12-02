@@ -12,18 +12,28 @@
         <p:growl id="messages"/>
         <h:form id="campos">
             <div class="corpo">
-                <p:panelGrid columns="2" layout="grid"
-                             columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                <p:panelGrid columns="3" layout="grid"
+                             columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-2, ui-lg-3"
                              styleClass="ui-panelgrid-blank">
 
                     <p:outputLabel value="Foto do produto: " for="foto"/>
 
-                    <p:fileUpload id="foto" fileUploadListener="#{produtoMB.handleFileUpload}"
+                    <p:fileUpload id="foto" fileUploadListener="#{arquivoMB.handleFileUpload}"
+                                  label="Selecione um Arquivo..."
                                   styleClass="inputs"
                                   sizeLimit="5000000"
                                   fileLimit="1"
                                   auto="true"
-                                  update="messages" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+                                  multiple="false"
+                                  invalidFileMessage="Formato de arquivo invalido (Somente JPEG, PNG)"
+                                  invalidSizeMessage="Tamanho do arquivo excede o limite permitido"
+                                  update="messages campos" allowTypes="/(\.|\/)(jpe?g|png)$/"/>
+                    <h:outputText value="#{arquivoMB.arquivoSelecionado}"/>
+                </p:panelGrid>
+
+                <p:panelGrid columns="2" layout="grid"
+                             columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
+                             styleClass="ui-panelgrid-blank">
 
                     <p:outputLabel value="Nome do produto: " for="nome"/>
                     <p:inputText id="nome" required="true"
@@ -74,7 +84,9 @@
                 </p:column>
 
                 <p:column headerText="Foto do Produto">
-                    <h:graphicImage value="#{produto.foto}"/>
+                    <p:commandButton icon="fa fa-download" ajax="false">
+                        <p:fileDownload value="#{produtoMB.baixarArquivo(produto)}"/>
+                    </p:commandButton>
                 </p:column>
 
             </p:dataTable>
