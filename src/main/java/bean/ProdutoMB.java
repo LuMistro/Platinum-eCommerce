@@ -12,13 +12,14 @@ import service.ArquivoService;
 import javax.activation.MimetypesFileTypeMap;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @ManagedBean
-@ViewScoped
+@RequestScoped
 public class ProdutoMB implements Serializable {
 
     private Produto produto;
@@ -27,6 +28,7 @@ public class ProdutoMB implements Serializable {
     private String arquivoSelecionado;
     private ArquivoService arquivoService;
     private ProdutoMB produtoMB;
+    private StreamedContent graphicText;
     private String caminhoAbsoluto = System.getProperty("user.home") + "/" + "ecommerce/produtos";
 
     @PostConstruct
@@ -36,18 +38,20 @@ public class ProdutoMB implements Serializable {
     }
 
 
-
     public void limpar() {
         produto = new Produto();
         arquivoSelecionado = null;
     }
 
+public void adicionarNaLista(){
+        produtos.add(produto);
+}
 
     public void salvar() {
 
         if (produto.getId() == null) {
             produto.setArquivo(ArquivoMB.arquivo);
-            Arquivo arquivoSalvo = arquivoService.inserirArquivoNoSistema(produto.getArquivo() , criarDiretorioArquivo(produto));
+            Arquivo arquivoSalvo = arquivoService.inserirArquivoNoSistema(produto.getArquivo(), criarDiretorioArquivo(produto));
             produto.setArquivo(arquivoSalvo);
             produtoDao.salvar(produto);
         } else {
@@ -63,11 +67,11 @@ public class ProdutoMB implements Serializable {
 
 
     public StreamedContent baixarArquivo(Produto produto) {
-      File file =  arquivoService.obterArquivo(produto.getArquivo().getNome() ,produto.getArquivo().getCaminho());
+        File file = arquivoService.obterArquivo(produto.getArquivo().getNome(), produto.getArquivo().getCaminho());
         String contentType = new MimetypesFileTypeMap().getContentType(produto.getArquivo().getNome());
         try {
             FileInputStream stream = new FileInputStream(file);
-            return new DefaultStreamedContent(stream , contentType , produto.getArquivo().getNome());
+            return new DefaultStreamedContent(stream, contentType, produto.getArquivo().getNome());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -110,14 +114,6 @@ public class ProdutoMB implements Serializable {
         this.arquivoSelecionado = arquivoSelecionado;
     }
 
-    public void handleFileUpload(FileUploadEvent event) throws IOException {
-        Arquivo arquivo = new Arquivo();
-        arquivo.setNome(event.getFile().getFileName());
-        arquivo.setStream(event.getFile().getInputstream());
-        produto.setArquivo(arquivo);
-        arquivoSelecionado = arquivo.getNome();
-    }
-
     public String getCaminhoAbsoluto() {
         return caminhoAbsoluto;
     }
@@ -125,4 +121,13 @@ public class ProdutoMB implements Serializable {
     public void setCaminhoAbsoluto(String caminhoAbsoluto) {
         this.caminhoAbsoluto = caminhoAbsoluto;
     }
+
+    public void handleFileUpload(FileUploadEvent event) throws IOException {
+        Arquivo arquivo = new Arquivo();
+        arquivo.setNome(event.getFile().getFileName());
+        arquivo.setStream(event.getFile().getInputstream());
+        produto.setArquivo(arquivo);
+        arquivoSelecionado = arquivo.getNome();
+    }
 }
+

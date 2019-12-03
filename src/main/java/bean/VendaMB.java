@@ -28,6 +28,7 @@ public class VendaMB implements Serializable {
     private Integer quantidade;
     private ItemVenda itemVenda;
     private IBaseDao<Venda> vendaDao;
+    private Integer produtoId;
 
 
     private List<Venda> vendas;
@@ -35,6 +36,7 @@ public class VendaMB implements Serializable {
 
     private List<Produto> produtos;
     private IBaseDao<Produto> produtoDao;
+    private ProdutoMB produtoMB;
 
     private IBaseDao<Cliente> clienteDao;
     private IBaseDao<Endereco> enderecoDao;
@@ -45,6 +47,18 @@ public class VendaMB implements Serializable {
         inicializaObjetos();
     }
 
+    public void listaCarrinho() {
+        List<Produto> listProduto = produtoMB.getProdutos();
+        for (int i = 0; i < listProduto.size(); i++) {
+            produto = listProduto.get(i);
+            itemVenda = new ItemVenda();
+            itemVenda.setProduto(produto);
+            itemVenda.setQuantidade(quantidade);
+            itemVenda.setVenda(venda);
+            itemVendas.add(itemVenda);
+            itemVenda = new ItemVenda();
+        }
+    }
 
     public void limpar() {
         venda = new Venda();
@@ -213,4 +227,5 @@ public class VendaMB implements Serializable {
     public void setFormaPagamentos(List<FormaPagamento> formaPagamentos) {
         this.formaPagamentos = formaPagamentos;
     }
+
 }

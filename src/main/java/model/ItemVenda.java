@@ -16,6 +16,7 @@ public class ItemVenda implements IBaseModel {
     @ManyToOne
     private Venda venda;
 
+    @Column(columnDefinition = "Integer default 1")
     private Integer quantidade;
 
 
