@@ -9,7 +9,7 @@
     <ui:define name="titulo">Cadastro de produto</ui:define>
 
     <ui:define name="conteudo">
-        <p:growl id="messages" sticky="true"/>
+        <p:growl id="messages"/>
         <h:form id="campos">
             <div class="corpo" style="background-color:  white">
                 <p:panelGrid columns="3" layout="grid"
@@ -37,12 +37,14 @@
 
                     <p:outputLabel value="Nome do produto: " for="nome"/>
                     <p:inputText id="nome" required="true"
+                                 style="border: 1px solid #5855557a;border-radius: 10px;"
                                  requiredMessage="Nome deve ser preenchido"
                                  placeholder="Informe o nome"
                                  value="#{produtoMB.produto.nome}"/>
 
                     <p:outputLabel value="Preço do produto: " for="preco"/>
                     <p:inputText id="preco" required="true"
+                                 style="border: 1px solid #5855557a;border-radius: 10px;"
                                  requiredMessage="Preço deve ser preenchido"
                                  placeholder="Informe o preço do produto"
                                  value="#{produtoMB.produto.preco}">
@@ -51,16 +53,17 @@
 
                     <p:outputLabel value="Quantidade em estoque: " for="quantidade"/>
                     <p:inputText id="quantidade" required="true"
+                                 style="border: 1px solid #5855557a;border-radius: 10px;"
                                  requiredMessage="Quantidade deve ser preenchido"
                                  placeholder="Informe a quantidade do produto em estoque"
                                  value="#{produtoMB.produto.quantidadeEstoque}"/>
                 </p:panelGrid>
                 <p:toolbar>
                     <f:facet name="right">
-                        <p:commandButton value="Salvar" update="tabela messages campos @this" icon="fa fa-save"
+                        <p:commandButton value="Salvar" update="tabela messages campos @this" icon="fa fa-save" style="border: 1px solid #5855557a;border-radius: 10px;"
                                          action="#{produtoMB.salvar}"/>
 
-                        <p:commandButton value="Limpar" update="campos messages @this" icon="fa fa-eraser"
+                        <p:commandButton value="Limpar" update="campos messages @this" icon="fa fa-eraser"  style="border: 1px solid #5855557a;border-radius: 10px;"
                                          process="@this"
                                          action="#{produtoMB.limpar}"/>
                     </f:facet>
@@ -70,23 +73,24 @@
         <h:form id="tabela">
             <p:panel header="Produtos Cadastrados" style="background-color: aliceblue !important;">
                 <p:dataTable var="produto" value="#{produtoMB.produtos}">
-                    <p:column headerText="SKU">
+
+                    <p:column headerText="SKU" style="width: 100px; text-align: center">
                         <h:outputText value="#{produto.id}"/>
                     </p:column>
 
-                    <p:column headerText="Nome">
+                    <p:column headerText="Nome" style="text-align: center">
                         <h:outputText value="#{produto.nome}"/>
                     </p:column>
 
-                    <p:column headerText="Preço Unitário">
+                    <p:column headerText="Preço Unitário" style="text-align: center; width: 130px">
                         <h:outputText value="#{produto.preco}"/>
                     </p:column>
 
-                    <p:column headerText="Quantidade em Estoque">
+                    <p:column headerText="Quantidade em Estoque" style="text-align: center; width: 130px">
                         <h:outputText value="#{produto.quantidadeEstoque}"/>
                     </p:column>
 
-                    <p:column headerText="Foto do Produto">
+                    <p:column headerText="Foto do Produto" style="width: 100px; text-align: center">
                         <p:commandButton icon="fa fa-download" ajax="false">
                             <p:fileDownload value="#{produtoMB.baixarArquivo(produto)}"/>
                         </p:commandButton>

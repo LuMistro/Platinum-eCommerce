@@ -9,10 +9,10 @@
     <ui:define name="titulo"></ui:define>
 
     <ui:define name="conteudo">
-        <p:growl id="messages" sticky="true"/>
+        <p:growl id="messages"/>
         <h:form id="form">
             <div style="text-align: center; margin-bottom: 40px">
-                <img src="resources/imagens/logo.png" width="220px" style="text-align: center"/>
+                <img src="resources/imagens/logo.png" width="500px" style="text-align: center"/>
             </div>
             <p:dataGrid var="p" value="#{produtoMB.produtos}" columns="3" layout="grid"
                         rows="12" paginator="true" id="produtos"

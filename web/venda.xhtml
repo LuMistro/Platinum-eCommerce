@@ -10,7 +10,7 @@
 
     <ui:define name="conteudo">
         <h:form id="venda">
-            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <p:growl id="growl" showDetail="true"/>
 
             <p:wizard flowListener="#{vendaMB.onFlowProcess}">
                 <p:tab id="cliente" title="Cliente">
@@ -18,13 +18,16 @@
                         <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-1 , ui-lg-11"
                                      styleClass="ui-panelgrid-blank">
                             <p:outputLabel value="CPF:"/>
-                            <p:inputMask mask="999.999.999-99" required="true" value="#{vendaMB.venda.cliente.cpf}"/>
+                            <p:inputMask mask="999.999.999-99" required="true" value="#{vendaMB.venda.cliente.cpf}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
 
                             <p:outputLabel value="Nome:"/>
-                            <p:inputText required="true" value="#{vendaMB.venda.cliente.nome}"/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.nome}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
 
                             <p:outputLabel value="Email: "/>
-                            <p:inputText required="true" value="#{vendaMB.venda.cliente.email}"/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.email}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
                         </p:panelGrid>
 
                     </p:panel>
@@ -34,17 +37,22 @@
                                      styleClass="ui-panelgrid-blank">
                             <p:outputLabel value="CEP:"/>
                             <p:inputMask mask="99.999-999" required="true"
-                                         value="#{vendaMB.venda.cliente.endereco.cep}"/>
+                                         value="#{vendaMB.venda.cliente.endereco.cep}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
                             <p:outputLabel value="Estado:"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.endereco.estado}"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.estado}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
                             <p:outputLabel value="Cidade:"/>
-                            <p:inputText required="true" value="#{vendaMB.venda.cliente.endereco.cidade}"/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.endereco.cidade}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
 
                             <p:outputLabel value="Bairro:"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.endereco.bairro}"/>
+                            <p:inputText value="#{vendaMB.venda.cliente.endereco.bairro}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
 
                             <p:outputLabel value="Logradouro: "/>
-                            <p:inputText required="true" value="#{vendaMB.venda.cliente.endereco.logradouro}"/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.endereco.logradouro}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"/>
                         </p:panelGrid>
 
                     </p:panel>
@@ -53,16 +61,22 @@
                 <p:tab id="produto" title="Produtos">
                     <p:panel header="Selecione um ou mais produtos" styleClass="ui-fluid">
                         <p:panelGrid columns="5" layout="grid" columnClasses="ui-lg-1 , ui-lg-3 , ui-lg-1 , ui-lg-1">
+
                             <p:outputLabel for="comboProdutos" value="Produto: "/>
-                            <p:selectOneMenu id="comboProdutos" value="#{vendaMB.produto}">
+                            <p:selectOneMenu id="comboProdutos" value="#{vendaMB.produto}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;">
                                 <f:selectItem noSelectionOption="true" itemLabel="Selecione um produto..."/>
                                 <f:selectItems value="#{vendaMB.produtos}" var="pr" itemLabel="#{pr.nome}"/>
                             </p:selectOneMenu>
+
                             <h:outputText value="Quantidade: "/>
                             <p:inputText id="campoQtd" required="true"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"
                                          requiredMessage="Quantidade - Valor Obrigatório"
                                          value="#{vendaMB.quantidade}"/>
-                            <p:commandButton action="#{vendaMB.adicionarItem}" update="@form" value="Adicionar"
+                            <p:commandButton action="#{vendaMB.adicionarItem}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"
+                                             update="@form" value="Adicionar"
                                              icon="fa fa-plus-square"/>
                         </p:panelGrid>
 
@@ -133,25 +147,28 @@
                 <p:tab id="pagamento" title="Forma de Pagamento">
                     <p:panel header="Informações de forma de pagamento" styleClass="ui-fluid">
                         <p:panelGrid columns="2" layout="grid" columnClasses="ui-lg-2 , ui-lg-10">
+
                             <h:outputText value="Formas de pagamento:"/>
                             <p:selectOneMenu id="comboFormasDePagamento" required="true"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"
                                              value="#{vendaMB.venda.formaPagamento}">
                                 <f:selectItem noSelectionOption="true" itemLabel="Selecione um forma..."/>
                                 <f:selectItems value="#{vendaMB.formaPagamentos}" var="f" itemLabel="#{f}"/>
                             </p:selectOneMenu>
 
                             <h:outputText value="Número do cartão:"/>
-                            <p:inputText/>
+                            <p:inputText style="border: 1px solid #5855557a;border-radius: 10px;"/>
 
                             <h:outputText value="Número de segurança do cartão:"/>
-                            <p:inputText/>
+                            <p:inputText style="border: 1px solid #5855557a;border-radius: 10px;"/>
 
                             <h:outputText value="Validade do cartão:"/>
-                            <p:inputText/>
+                            <p:inputText style="border: 1px solid #5855557a;border-radius: 10px;"/>
 
 
                             <h:outputText value="Valor total"/>
-                            <p:inputText readonly="true" value="#{vendaMB.venda.valorTotal}"/>
+                            <p:inputText style="border: 1px solid #5855557a;border-radius: 10px;" readonly="true"
+                                         value="#{vendaMB.venda.valorTotal}"/>
                         </p:panelGrid>
                     </p:panel>
                 </p:tab>
@@ -162,22 +179,28 @@
                             <p:panelGrid columns="4" layout="grid"
                                          columnClasses="ui-lg-2 , ui-lg-3 , ui-lg-2 , ui-lg-4">
                                 <h:outputText value="CPF:"/>
-                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.cpf}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.cpf}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"/>
                                 <h:outputText value="Nome:"/>
-                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.nome}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.nome}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"/>
                                 <h:outputText value="Estado:"/>
-                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.endereco.estado}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.endereco.estado}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"/>
                                 <h:outputText value="Cidade:"/>
-                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.endereco.cidade}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.endereco.cidade}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"/>
                             </p:panelGrid>
                         </p:panel>
                         <p:panel header="Informações de Venda" styleClass="ui-fluid">
                             <p:panelGrid columns="4" layout="grid"
                                          columnClasses="ui-lg-2 , ui-lg-3 , ui-lg-2 , ui-lg-4">
                                 <h:outputText value="Forma de pagamento:"/>
-                                <p:inputText readonly="true" value="#{vendaMB.venda.formaPagamento}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.formaPagamento}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"/>
                                 <h:outputText value="Valor Total:"/>
-                                <p:inputText readonly="true" value="#{vendaMB.venda.valorTotal}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.valorTotal}"
+                                             style="border: 1px solid #5855557a;border-radius: 10px;"/>
                             </p:panelGrid>
                         </p:panel>
 
@@ -219,7 +242,9 @@
                         </p:panel>
 
 
-                        <p:commandButton value="Finalizar Compra" action="#{vendaMB.efetivarVenda}" update="growl venda @this"/>
+                        <p:commandButton value="Finalizar Compra" action="#{vendaMB.efetivarVenda}"
+                                         style="border: 1px solid #5855557a;border-radius: 10px;"
+                                         update="growl venda @this"/>
                     </p:panel>
                 </p:tab>
             </p:wizard>

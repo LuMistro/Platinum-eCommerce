@@ -1,5 +1,6 @@
 * {
     font-family: Verdana;
+    /*text-align: center;*/
 }
 
 .ui-widget-content {
@@ -33,9 +34,25 @@
 
 }
 
-body .ui-widget:not(.pi), body .ui-widget .ui-widget:not(.pi){
-    font-size: 20px !important;
+body .ui-widget:not(.pi), body .ui-widget .ui-widget:not(.pi) {
     color: black !important;
-    border: none !important;
+    border: none;
     background-color: white !important;
+}
+
+body .ui-fileupload .ui-fileupload-content {
+    border: none;
+}
+
+.ui-toolbar-group-right {
+    float: left !important;
+}
+
+.fa {
+    font-size: 30px;
+}
+
+body .ui-button.ui-button-icon-only .ui-icon {
+    font-size: 30px;
+
 }
