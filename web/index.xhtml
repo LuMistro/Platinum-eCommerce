@@ -19,15 +19,9 @@
                     Produtos
                 </f:facet>
 
-                <!--                #{produtoMB.caminhoAbsoluto}/#{p.arquivo.nome}-->
-                <!--                 value="#{p.arquivo.caminho}#{p.arquivo.nome}"-->
-                <!--                dir="#{produtoMB.caminhoAbsoluto}\ #{p.arquivo.nome}"-->
-
-
                 <p:panel header="#{p.id}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%">
-                                                <p:graphicImage value="Platinum/src/resources/images/57922" style="width: 100px"/>
-<!--                        <p:graphicImage value="#{produtoMB.caminhoAbsoluto}/#{p.arquivo.nome}" alt="#{p.nome}"/>-->
+                        <p:graphicImage url="#{produtoMB.getFoto(p.arquivo.nome)}" width="100px"/>
                         <h:outputText value="#{p.nome}"/>
 
                         <p:commandLink update=":form:detalhesProduto" oncomplete="PF('ProdutoView').show()"
@@ -35,7 +29,7 @@
                             <h:outputText styleClass="fa fa-search" style="margin:0 auto;"/>
                             <f:setPropertyActionListener value="#{p}" target="#{produtoMB.produto}"/>
                         </p:commandLink>
-                        <p:commandButton icon="fa fa-cart-plus" action="#{produtoMB.adicionarNaLista}"/>
+                        <p:commandButton icon="fa fa-cart-plus" action="#{carrinhoMB.inserirProdutosNoCarrinho(p)}"/>
 
                     </h:panelGrid>
                 </p:panel>

@@ -3,7 +3,11 @@ package service;
 import dao.util.JpaUtil;
 import model.Arquivo;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
 public class ArquivoService {
@@ -51,7 +55,8 @@ public class ArquivoService {
     }
 
     public File obterArquivo(String nomeArquivo, String nomeDiretorio) {
-        File diretorioRaiz = new File(folderPath);
+        String local = getRealPath()+"/images/";
+        File diretorioRaiz = new File(local);
         File diretorio = new File(diretorioRaiz, nomeDiretorio);
         if (!diretorio.exists()) {
             diretorio.mkdirs();
@@ -79,6 +84,14 @@ public class ArquivoService {
         }
         out.close();
         stream.close();
+    }
+
+    public String getRealPath() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletResponse response = (HttpServletResponse) externalContext.getResponse();
+        FacesContext aFacesContext = FacesContext.getCurrentInstance();
+        ServletContext context = (ServletContext) aFacesContext.getExternalContext().getContext();
+        return context.getRealPath("/");
     }
 
 }

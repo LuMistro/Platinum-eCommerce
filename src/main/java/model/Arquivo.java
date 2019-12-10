@@ -2,8 +2,13 @@ package model;
 
 import interfaces.IBaseModel;
 
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.*;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 @Entity

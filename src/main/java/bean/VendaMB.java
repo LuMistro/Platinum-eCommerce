@@ -14,7 +14,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import java.io.Serializable;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
@@ -37,6 +36,7 @@ public class VendaMB implements Serializable {
     private List<Produto> produtos;
     private IBaseDao<Produto> produtoDao;
     private ProdutoMB produtoMB;
+    private CarrinhoMB carrinhoMB;
 
     private IBaseDao<Cliente> clienteDao;
     private IBaseDao<Endereco> enderecoDao;
@@ -69,7 +69,7 @@ public class VendaMB implements Serializable {
 
     public void atualizar() {
         vendas = vendaDao.buscarTodos();
-        produtos = produtoDao.buscarTodos();
+        produtos =  CarrinhoMB.produtosDoCarrinho;
     }
 
     private void inicializaObjetos() {
@@ -88,7 +88,8 @@ public class VendaMB implements Serializable {
         itemVendas = new ArrayList<>();
         formaPagamentos = new ArrayList<FormaPagamento>(EnumSet.allOf(FormaPagamento.class));
 
-        produtos = produtoDao.buscarTodos();
+        produtos =  CarrinhoMB.produtosDoCarrinho;
+        carrinhoMB = new CarrinhoMB();
     }
 
     public void adicionarItem() {

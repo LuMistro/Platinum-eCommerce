@@ -13,7 +13,7 @@ import javax.activation.MimetypesFileTypeMap;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,7 @@ public class ProdutoMB implements Serializable {
     private ArquivoService arquivoService;
     private ProdutoMB produtoMB;
     private StreamedContent graphicText;
+
     private String caminhoAbsoluto = System.getProperty("user.home") + "/" + "ecommerce/produtos";
 
     @PostConstruct
@@ -43,9 +44,9 @@ public class ProdutoMB implements Serializable {
         arquivoSelecionado = null;
     }
 
-public void adicionarNaLista(){
+    public void adicionarNaLista() {
         produtos.add(produto);
-}
+    }
 
     public void salvar() {
 
@@ -129,5 +130,23 @@ public void adicionarNaLista(){
         produto.setArquivo(arquivo);
         arquivoSelecionado = arquivo.getNome();
     }
+
+    public StreamedContent getFoto(String nomeProduto) {
+        File teste = new File("C:\\Users\\Avell\\ecommerce\\produtos\\" +"\\images\\produtos" + nomeProduto);
+        File foto = new File(arquivoService.getRealPath() + "\\images\\produtos\\" + nomeProduto);
+
+        DefaultStreamedContent content = null;
+        try {
+            BufferedInputStream in = new BufferedInputStream(new FileInputStream(foto));
+            byte[] bytes = new byte[in.available()];
+            in.read(bytes);
+            in.close();
+            content = new DefaultStreamedContent(new ByteArrayInputStream(bytes), "image/png");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return content;
+    }
+
 }
 
