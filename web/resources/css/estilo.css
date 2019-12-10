@@ -19,10 +19,23 @@
     text-align: center;
 }
 
-.corpo{
+.corpo {
     padding: 30px;
 }
 
-.botaoMenu{
+.botaoMenu {
     margin-bottom: 10px;
+}
+
+#menuLateral button {
+    background-color: white !important;
+    color: aqua !important;
+
+}
+
+body .ui-widget:not(.pi), body .ui-widget .ui-widget:not(.pi){
+    font-size: 20px !important;
+    color: black !important;
+    border: none !important;
+    background-color: white !important;
 }

@@ -14,7 +14,8 @@
             <p:dataGrid var="p" value="#{produtoMB.produtos}" columns="3" layout="grid"
                         rows="12" paginator="true" id="produtos"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16">
+                        rowsPerPageTemplate="6,12,16"
+            paginatorPosition="bottom">
 
                 <f:facet name="header">
                     Produtos
