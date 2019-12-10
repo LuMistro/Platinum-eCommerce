@@ -11,7 +11,7 @@
     <ui:define name="conteudo">
         <p:growl id="messages" sticky="true"/>
         <h:form id="campos">
-            <div class="corpo">
+            <div class="corpo" style="background-color:  white">
                 <p:panelGrid columns="3" layout="grid"
                              columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-2, ui-lg-3"
                              styleClass="ui-panelgrid-blank">
@@ -33,7 +33,7 @@
 
                 <p:panelGrid columns="2" layout="grid"
                              columnClasses="ui-g-4 ui-md-3 ui-lg-2, ui-g-8 ui-md-9 ui-lg-10"
-                             styleClass="ui-panelgrid-blank">
+                             styleClass="ui-panelgrid-blank ui-fluid">
 
                     <p:outputLabel value="Nome do produto: " for="nome"/>
                     <p:inputText id="nome" required="true"
@@ -45,7 +45,9 @@
                     <p:inputText id="preco" required="true"
                                  requiredMessage="Preço deve ser preenchido"
                                  placeholder="Informe o preço do produto"
-                                 value="#{produtoMB.produto.preco}"/>
+                                 value="#{produtoMB.produto.preco}">
+                        <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
+                    </p:inputText>
 
                     <p:outputLabel value="Quantidade em estoque: " for="quantidade"/>
                     <p:inputText id="quantidade" required="true"
@@ -54,7 +56,7 @@
                                  value="#{produtoMB.produto.quantidadeEstoque}"/>
                 </p:panelGrid>
                 <p:toolbar>
-                    <f:facet name="left">
+                    <f:facet name="right">
                         <p:commandButton value="Salvar" update="tabela messages campos @this" icon="fa fa-save"
                                          action="#{produtoMB.salvar}"/>
 
@@ -66,30 +68,32 @@
             </div>
         </h:form>
         <h:form id="tabela">
-            <p:dataTable var="produto" value="#{produtoMB.produtos}">
-                <p:column headerText="SKU">
-                    <h:outputText value="#{produto.id}"/>
-                </p:column>
+            <p:panel header="Produtos Cadastrados" style="background-color: aliceblue !important;">
+                <p:dataTable var="produto" value="#{produtoMB.produtos}">
+                    <p:column headerText="SKU">
+                        <h:outputText value="#{produto.id}"/>
+                    </p:column>
 
-                <p:column headerText="Nome">
-                    <h:outputText value="#{produto.nome}"/>
-                </p:column>
+                    <p:column headerText="Nome">
+                        <h:outputText value="#{produto.nome}"/>
+                    </p:column>
 
-                <p:column headerText="Preço Unitário">
-                    <h:outputText value="#{produto.preco}"/>
-                </p:column>
+                    <p:column headerText="Preço Unitário">
+                        <h:outputText value="#{produto.preco}"/>
+                    </p:column>
 
-                <p:column headerText="Quantidade em Estoque">
-                    <h:outputText value="#{produto.quantidadeEstoque}"/>
-                </p:column>
+                    <p:column headerText="Quantidade em Estoque">
+                        <h:outputText value="#{produto.quantidadeEstoque}"/>
+                    </p:column>
 
-                <p:column headerText="Foto do Produto">
-                    <p:commandButton icon="fa fa-download" ajax="false">
-                        <p:fileDownload value="#{produtoMB.baixarArquivo(produto)}"/>
-                    </p:commandButton>
-                </p:column>
+                    <p:column headerText="Foto do Produto">
+                        <p:commandButton icon="fa fa-download" ajax="false">
+                            <p:fileDownload value="#{produtoMB.baixarArquivo(produto)}"/>
+                        </p:commandButton>
+                    </p:column>
 
-            </p:dataTable>
+                </p:dataTable>
+            </p:panel>
         </h:form>
     </ui:define>
 </ui:composition>
