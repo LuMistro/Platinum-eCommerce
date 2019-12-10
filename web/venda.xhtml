@@ -9,43 +9,42 @@
     <ui:define name="titulo">Platinum - Efetivar venda</ui:define>
 
     <ui:define name="conteudo">
-        <h:form>
+        <h:form id="venda">
             <p:growl id="growl" sticky="true" showDetail="true"/>
 
             <p:wizard flowListener="#{vendaMB.onFlowProcess}">
                 <p:tab id="cliente" title="Cliente">
                     <p:panel header="Detalhes do cliente" styleClass="ui-fluid">
-                        <p:messages/>
                         <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-1 , ui-lg-11"
                                      styleClass="ui-panelgrid-blank">
-                            <p:outputLabel value="CPF: *"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.cpf}"/>
+                            <p:outputLabel value="CPF:"/>
+                            <p:inputMask mask="999.999.999-99" required="true" value="#{vendaMB.venda.cliente.cpf}"/>
 
-                            <p:outputLabel value="Nome: *"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.nome}"/>
+                            <p:outputLabel value="Nome:"/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.nome}"/>
 
                             <p:outputLabel value="Email: "/>
-                            <p:inputText value="#{vendaMB.venda.cliente.email}"/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.email}"/>
                         </p:panelGrid>
 
                     </p:panel>
 
                     <p:panel header="Detalhes de entrega" styleClass="ui-fluid">
-                        <p:messages/>
                         <p:panelGrid layout="grid" columns="2" columnClasses="ui-lg-1 , ui-lg-11"
                                      styleClass="ui-panelgrid-blank">
-                            <p:outputLabel value="CEP: *"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.endereco.cep}"/>
-                            <p:outputLabel value="Estado: *"/>
+                            <p:outputLabel value="CEP:"/>
+                            <p:inputMask mask="99.999-999" required="true"
+                                         value="#{vendaMB.venda.cliente.endereco.cep}"/>
+                            <p:outputLabel value="Estado:"/>
                             <p:inputText value="#{vendaMB.venda.cliente.endereco.estado}"/>
-                            <p:outputLabel value="Cidade: *"/>
-                            <p:inputText value="#{vendaMB.venda.cliente.endereco.cidade}"/>
+                            <p:outputLabel value="Cidade:"/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.endereco.cidade}"/>
 
-                            <p:outputLabel value="Bairro: "/>
+                            <p:outputLabel value="Bairro:"/>
                             <p:inputText value="#{vendaMB.venda.cliente.endereco.bairro}"/>
 
-                            <p:outputLabel value="Logradouro*: "/>
-                            <p:inputText value="#{vendaMB.venda.cliente.endereco.logradouro}"/>
+                            <p:outputLabel value="Logradouro: "/>
+                            <p:inputText required="true" value="#{vendaMB.venda.cliente.endereco.logradouro}"/>
                         </p:panelGrid>
 
                     </p:panel>
@@ -53,7 +52,6 @@
 
                 <p:tab id="produto" title="Produtos">
                     <p:panel header="Selecione um ou mais produtos" styleClass="ui-fluid">
-                        <p:messages/>
                         <p:panelGrid columns="5" layout="grid" columnClasses="ui-lg-1 , ui-lg-3 , ui-lg-1 , ui-lg-1">
                             <p:outputLabel for="comboProdutos" value="Produto: "/>
                             <p:selectOneMenu id="comboProdutos" value="#{vendaMB.produto}">
@@ -61,7 +59,9 @@
                                 <f:selectItems value="#{vendaMB.produtos}" var="pr" itemLabel="#{pr.nome}"/>
                             </p:selectOneMenu>
                             <h:outputText value="Quantidade: "/>
-                            <p:inputText id="campoQtd" value="#{vendaMB.quantidade}"/>
+                            <p:inputText id="campoQtd" required="true"
+                                         requiredMessage="Quantidade - Valor Obrigatório"
+                                         value="#{vendaMB.quantidade}"/>
                             <p:commandButton action="#{vendaMB.adicionarItem}" update="@form" value="Adicionar"
                                              icon="fa fa-plus-square"/>
                         </p:panelGrid>
@@ -132,17 +132,23 @@
 
                 <p:tab id="pagamento" title="Forma de Pagamento">
                     <p:panel header="Informações de forma de pagamento" styleClass="ui-fluid">
-                        <p:messages/>
                         <p:panelGrid columns="2" layout="grid" columnClasses="ui-lg-2 , ui-lg-10">
-                            <h:outputText value="Formas de pagamento: *"/>
-                            <p:selectOneMenu id="comboFormasDePagamento" value="#{vendaMB.venda.formaPagamento}">
+                            <h:outputText value="Formas de pagamento:"/>
+                            <p:selectOneMenu id="comboFormasDePagamento" required="true"
+                                             value="#{vendaMB.venda.formaPagamento}">
                                 <f:selectItem noSelectionOption="true" itemLabel="Selecione um forma..."/>
                                 <f:selectItems value="#{vendaMB.formaPagamentos}" var="f" itemLabel="#{f}"/>
                             </p:selectOneMenu>
-                            <h:outputText value="Aplicar desconto"/>
-                            <p:inputText value="#{vendaMB.venda.valorDesconto}">
-                                <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
-                            </p:inputText>
+
+                            <h:outputText value="Número do cartão:"/>
+                            <p:inputText/>
+
+                            <h:outputText value="Número de segurança do cartão:"/>
+                            <p:inputText/>
+
+                            <h:outputText value="Validade do cartão:"/>
+                            <p:inputText/>
+
 
                             <h:outputText value="Valor total"/>
                             <p:inputText readonly="true" value="#{vendaMB.venda.valorTotal}"/>
@@ -150,40 +156,32 @@
                     </p:panel>
                 </p:tab>
 
-                <p:tab id="confirmacao" title="Confirmacao de compra">
+                <p:tab id="confirmacao" title="Confirmação de compra">
                     <p:panel header="Confirmação">
                         <p:panel header="Informações de Cliente" styleClass="ui-fluid">
-                            <p:messages/>
                             <p:panelGrid columns="4" layout="grid"
                                          columnClasses="ui-lg-2 , ui-lg-3 , ui-lg-2 , ui-lg-4">
                                 <h:outputText value="CPF:"/>
-                                <p:inputText value="#{vendaMB.venda.cliente.cpf}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.cpf}"/>
                                 <h:outputText value="Nome:"/>
-                                <p:inputText value="#{vendaMB.venda.cliente.nome}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.nome}"/>
                                 <h:outputText value="Estado:"/>
-                                <p:inputText value="#{vendaMB.venda.cliente.endereco.estado}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.endereco.estado}"/>
                                 <h:outputText value="Cidade:"/>
-                                <p:inputText value="#{vendaMB.venda.cliente.endereco.cidade}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.cliente.endereco.cidade}"/>
                             </p:panelGrid>
                         </p:panel>
                         <p:panel header="Informações de Venda" styleClass="ui-fluid">
-                            <p:messages/>
                             <p:panelGrid columns="4" layout="grid"
                                          columnClasses="ui-lg-2 , ui-lg-3 , ui-lg-2 , ui-lg-4">
                                 <h:outputText value="Forma de pagamento:"/>
-                                <p:inputText value="#{vendaMB.venda.formaPagamento}"/>
-                                <h:outputText value="Valor Desconto:"/>
-                                <p:inputText value="#{vendaMB.venda.valorDesconto}">
-                                    <f:convertNumber pattern="#,##0.00" locale="pt_BR"/>
-                                </p:inputText>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.formaPagamento}"/>
                                 <h:outputText value="Valor Total:"/>
-                                <p:inputText value="#{vendaMB.venda.valorTotal}"/>
+                                <p:inputText readonly="true" value="#{vendaMB.venda.valorTotal}"/>
                             </p:panelGrid>
                         </p:panel>
 
                         <p:panel header="Informações dos Itens de venda" styleClass="ui-fluid">
-                            <p:messages/>
-
                             <p:dataTable id="tabelaItemVendasRevisao" var="itemVRevisao" value="#{vendaMB.venda.items}"
                                          widgetVar="tabelaItemVendas">
 
@@ -194,7 +192,6 @@
                                                      style="width:280px" placeholder="Coloração X"/>
                                     </p:outputPanel>
                                 </f:facet>
-
                                 <p:column
                                         headerText="CODIGO"
                                         sortBy="#{itemVRevisao.produto.id}">
@@ -222,7 +219,7 @@
                         </p:panel>
 
 
-                        <p:commandButton value="Finalizar Compra" action="#{vendaMB.efetivarVenda}" update="growl"/>
+                        <p:commandButton value="Finalizar Compra" action="#{vendaMB.efetivarVenda}" update="growl venda @this"/>
                     </p:panel>
                 </p:tab>
             </p:wizard>

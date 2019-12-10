@@ -55,7 +55,7 @@ public class ArquivoService {
     }
 
     public File obterArquivo(String nomeArquivo, String nomeDiretorio) {
-        String local = getRealPath()+"/images/";
+        String local = getRealPath()+"/imagens/";
         File diretorioRaiz = new File(local);
         File diretorio = new File(diretorioRaiz, nomeDiretorio);
         if (!diretorio.exists()) {

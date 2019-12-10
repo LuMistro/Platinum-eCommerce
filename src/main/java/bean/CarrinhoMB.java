@@ -1,6 +1,7 @@
 package bean;
 
 import model.Produto;
+import util.Mensagem;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -20,10 +21,12 @@ public class CarrinhoMB implements Serializable {
 
     public void inserirProdutosNoCarrinho(List<Produto> produtos) {
         this.produtosDoCarrinho = produtos;
+        Mensagem.addMensagemInfo("adicionadoNoCarrinhoComSucesso");
     }
 
     public void inserirProdutosNoCarrinho(Produto produto) {
         this.produtosDoCarrinho.add(produto);
+        Mensagem.addMensagemInfo("adicionadoNoCarrinhoComSucesso");
     }
 
     public void removerProdutoDoCarrinho(Produto produto) {

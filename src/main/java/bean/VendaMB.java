@@ -69,7 +69,7 @@ public class VendaMB implements Serializable {
 
     public void atualizar() {
         vendas = vendaDao.buscarTodos();
-        produtos =  CarrinhoMB.produtosDoCarrinho;
+        produtos = CarrinhoMB.produtosDoCarrinho;
     }
 
     private void inicializaObjetos() {
@@ -88,7 +88,7 @@ public class VendaMB implements Serializable {
         itemVendas = new ArrayList<>();
         formaPagamentos = new ArrayList<FormaPagamento>(EnumSet.allOf(FormaPagamento.class));
 
-        produtos =  CarrinhoMB.produtosDoCarrinho;
+        produtos = CarrinhoMB.produtosDoCarrinho;
         carrinhoMB = new CarrinhoMB();
     }
 
@@ -122,6 +122,8 @@ public class VendaMB implements Serializable {
         }
 
         vendaDao.salvar(venda);
+        Mensagem.addMensagemInfo("vendaFeitaComSucesso");
+        limpar();
 
     }
 

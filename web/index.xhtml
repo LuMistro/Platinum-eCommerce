@@ -9,6 +9,7 @@
     <ui:define name="titulo"></ui:define>
 
     <ui:define name="conteudo">
+        <p:growl id="messages" sticky="true"/>
         <h:form id="form">
             <p:dataGrid var="p" value="#{produtoMB.produtos}" columns="3" layout="grid"
                         rows="12" paginator="true" id="produtos"
@@ -19,17 +20,16 @@
                     Produtos
                 </f:facet>
 
-                <p:panel header="#{p.id}" style="text-align:center">
+                <p:panel header="#{p.nome}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage url="#{produtoMB.getFoto(p.arquivo.nome)}" width="100px"/>
-                        <h:outputText value="#{p.nome}"/>
-
+                        <img src="resources/imagens/#{p.arquivo.nome}" width="220px"/>
                         <p:commandLink update=":form:detalhesProduto" oncomplete="PF('ProdutoView').show()"
                                        title="View Detail">
                             <h:outputText styleClass="fa fa-search" style="margin:0 auto;"/>
                             <f:setPropertyActionListener value="#{p}" target="#{produtoMB.produto}"/>
                         </p:commandLink>
-                        <p:commandButton icon="fa fa-cart-plus" action="#{carrinhoMB.inserirProdutosNoCarrinho(p)}"/>
+                        <p:commandButton icon="fa fa-cart-plus" update="messages"
+                                         action="#{carrinhoMB.inserirProdutosNoCarrinho(p)}"/>
 
                     </h:panelGrid>
                 </p:panel>
@@ -40,11 +40,11 @@
                       hideEffect="fade"
                       resizable="false">
                 <p:outputPanel id="detalhesProduto" style="text-align:center;">
+                    <img src="resources/imagens/#{produtoMB.produto.arquivo.nome}" width="220px"/>
                     <p:panelGrid columns="2" rendered="#{not empty produtoMB.produto}"
                                  columnClasses="label,value">
                         <f:facet name="header">
                         </f:facet>
-
                         <h:outputText value="Nome:"/>
                         <h:outputText value="#{produtoMB.produto.nome}"/>
 

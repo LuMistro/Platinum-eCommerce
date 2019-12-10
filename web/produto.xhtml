@@ -9,7 +9,7 @@
     <ui:define name="titulo">Cadastro de produto</ui:define>
 
     <ui:define name="conteudo">
-        <p:growl id="messages"/>
+        <p:growl id="messages" sticky="true"/>
         <h:form id="campos">
             <div class="corpo">
                 <p:panelGrid columns="3" layout="grid"
@@ -55,7 +55,7 @@
                 </p:panelGrid>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" update="tabela messages @this" icon="fa fa-save"
+                        <p:commandButton value="Salvar" update="tabela messages campos @this" icon="fa fa-save"
                                          action="#{produtoMB.salvar}"/>
 
                         <p:commandButton value="Limpar" update="campos messages @this" icon="fa fa-eraser"

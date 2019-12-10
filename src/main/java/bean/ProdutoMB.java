@@ -8,12 +8,15 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import service.ArquivoService;
+import util.Mensagem;
 
 import javax.activation.MimetypesFileTypeMap;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.rmi.CORBA.Util;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +58,8 @@ public class ProdutoMB implements Serializable {
             Arquivo arquivoSalvo = arquivoService.inserirArquivoNoSistema(produto.getArquivo(), criarDiretorioArquivo(produto));
             produto.setArquivo(arquivoSalvo);
             produtoDao.salvar(produto);
+
+            Mensagem.addMensagemInfo("produtoSalvoComSucesso");
         } else {
             produtoDao.alterar(produto);
         }
