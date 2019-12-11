@@ -11,14 +11,14 @@
     <ui:define name="conteudo">
         <p:growl id="messages"/>
         <h:form id="form">
-            <div style="text-align: center; margin-bottom: 40px">
+            <div style="text-align: center; margin-bottom: 40px; width: 100%; background-color: black;">
                 <img src="resources/imagens/logo.png" width="500px" style="text-align: center"/>
             </div>
             <p:dataGrid var="p" value="#{produtoMB.produtos}" columns="3" layout="grid"
                         rows="12" paginator="true" id="produtos"
                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                         rowsPerPageTemplate="6,12,16"
-            paginatorPosition="bottom">
+                        paginatorPosition="bottom">
 
                 <f:facet name="header">
                     Produtos
@@ -26,13 +26,17 @@
 
                 <p:panel header="#{p.nome}" style="text-align:center">
                     <h:panelGrid columns="1" style="width:100%">
-                        <img src="resources/imagens/#{p.arquivo.nome}" width="220px"/>
+                        <img src="resources/imagens/#{p.arquivo.nome}" style=" height: 200px"/>
                         <p:commandLink update=":form:detalhesProduto" oncomplete="PF('ProdutoView').show()"
                                        title="View Detail">
-                            <h:outputText styleClass="fa fa-search" style="margin:0 auto;"/>
+                            <h:outputText styleClass="fa fa-search" style="font-size: 25px"
+                                          title="Clique para ver detalhes do produto"/>
                             <f:setPropertyActionListener value="#{p}" target="#{produtoMB.produto}"/>
                         </p:commandLink>
                         <p:commandButton icon="fa fa-cart-plus" update="messages"
+                                         title="Adicionar no carrinho"
+                                         value="Adicionar no carrinho"
+                                         style="font-size: 20px"
                                          action="#{carrinhoMB.inserirProdutosNoCarrinho(p)}"/>
 
                     </h:panelGrid>
@@ -44,8 +48,9 @@
                       hideEffect="fade"
                       resizable="false">
                 <p:outputPanel id="detalhesProduto" style="text-align:center;">
-                    <img src="resources/imagens/#{produtoMB.produto.arquivo.nome}" width="220px"/>
+                    <img src="resources/imagens/#{produtoMB.produto.arquivo.nome}" style="height: 400px"/>
                     <p:panelGrid columns="2" rendered="#{not empty produtoMB.produto}"
+                                 style="width: 100%"
                                  columnClasses="label,value">
                         <f:facet name="header">
                         </f:facet>

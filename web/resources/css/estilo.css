@@ -1,6 +1,9 @@
 * {
     font-family: Verdana;
-    /*text-align: center;*/
+}
+
+body {
+    margin: 0;
 }
 
 .ui-widget-content {
@@ -31,13 +34,13 @@
 #menuLateral button {
     background-color: white !important;
     color: aqua !important;
-
 }
 
 body .ui-widget:not(.pi), body .ui-widget .ui-widget:not(.pi) {
     color: black !important;
     border: none;
     background-color: white !important;
+    margin-top: 5px !important;
 }
 
 body .ui-fileupload .ui-fileupload-content {
@@ -54,5 +57,4 @@ body .ui-fileupload .ui-fileupload-content {
 
 body .ui-button.ui-button-icon-only .ui-icon {
     font-size: 30px;
-
 }

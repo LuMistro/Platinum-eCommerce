@@ -5,14 +5,10 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:form>
-
-
     <p:panelGrid columns="1"
                  styleClass="ui-panelgrid-blank">
         <p:commandButton icon="fa fa-bars" oncomplete="PF('sidebar1').show()"/>
     </p:panelGrid>
-
-
     <p:sidebar id="menuLateraL" widgetVar="sidebar1" baseZIndex="10000">
         <h1 style="font-weight:normal">Menu</h1>
         <p:button styleClass="botaoMenu" value="Página Principal" outcome="index.xhtml" style="text-align: center"/>
@@ -21,10 +17,7 @@
         <p:button styleClass="botaoMenu" value="Produtos" outcome="produto.xhtml" style="text-align: center"/>
         <br/>
         <br/>
-        <p:button styleClass="botaoMenu" value="Venda" outcome="venda.xhtml" style="text-align: center"/>
+        <p:button styleClass="botaoMenu" value="Carrinho" outcome="venda.xhtml" style="text-align: center"/>
     </p:sidebar>
-
-
 </h:form>
-
 </html>
